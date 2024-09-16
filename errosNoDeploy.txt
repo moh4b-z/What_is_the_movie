@@ -1,0 +1,44 @@
+Sim, a API do IMDb pode ter questões relacionadas a CORS (Cross-Origin Resource Sharing) e limitações de uso que podem afetar seu funcionamento, especialmente quando você está trabalhando com deploys em plataformas como GitHub Pages. Aqui estão algumas questões e soluções comuns que você pode encontrar:
+
+### **1. Problemas de CORS**
+
+#### O que é CORS?
+CORS é um mecanismo de segurança dos navegadores que restringe como os recursos em uma página web podem ser solicitados de um domínio diferente daquele que serviu a página. Isso significa que se sua aplicação web está hospedada em um domínio (por exemplo, `https://meusite.github.io`), ela pode ter restrições ao tentar fazer requisições para uma API que está em outro domínio (por exemplo, `http://www.omdbapi.com`).
+
+#### Soluções para Problemas de CORS:
+- **Proxy:** Utilize um proxy para fazer as requisições à API. Um proxy é um servidor que atua como intermediário entre seu cliente (o navegador) e a API. Você pode configurar um proxy em seu servidor ou usar serviços de proxy públicos como [CORS Anywhere](https://cors-anywhere.herokuapp.com/). No entanto, usar proxies públicos pode não ser ideal para produção.
+
+    Exemplo:
+    ```javascript
+    const url = `https://cors-anywhere.herokuapp.com/https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=${apiKey}`;
+    ```
+
+- **Configuração do Servidor:** Se você controlar o servidor que fornece a API, configure os cabeçalhos CORS para permitir solicitações de diferentes domínios.
+
+### **2. Limitações da API**
+
+#### Limitações Comuns:
+- **Limites de Requisições:** Muitas APIs têm limites de requisições por minuto, hora ou dia. Isso é feito para evitar abuso e garantir que todos os usuários tenham uma quantidade justa de acesso.
+
+- **Chave de API:** Algumas APIs exigem uma chave de API para autenticação e têm limites baseados na chave. Verifique se você está utilizando uma chave válida e se não excedeu o número de requisições permitidas.
+
+#### Soluções para Limitações de API:
+- **Planejamento de Uso:** Planeje o uso da API para garantir que você não exceda os limites de requisição. Utilize técnicas como cache para reduzir o número de requisições.
+
+- **Alternativas:** Considere utilizar uma API diferente que tenha menos restrições ou seja mais adequada ao seu caso de uso. O [OMDb API](https://www.omdbapi.com/) pode ter limites dependendo do tipo de plano (gratuito ou pago).
+
+- **Armazenamento Local:** Armazene dados localmente para reduzir o número de chamadas à API. Por exemplo, você pode armazenar informações sobre filmes em um banco de dados local e atualizar esses dados periodicamente.
+
+### **Exemplo de Configuração de Proxy em Desenvolvimento**
+
+Se estiver desenvolvendo localmente, você pode configurar um proxy para evitar problemas de CORS:
+
+1. **Crie um Proxy Local:**
+   Se você estiver usando Node.js, pode configurar um proxy local usando pacotes como `http-proxy-middleware`.
+
+2. **Utilize um Proxy Temporário:**
+   Para desenvolvimento, você pode usar proxies temporários, como `CORS Anywhere`, mas lembre-se de que isso não é recomendado para produção.
+
+### **Conclusão**
+
+Para problemas de CORS, a melhor solução é configurar os cabeçalhos CORS corretamente no servidor de destino ou usar um proxy confiável. Para limitações da API, é importante conhecer as restrições da API e planejar seu uso de acordo. Se a API que você está usando não atende às suas necessidades, considere alternativas que se encaixem melhor no seu projeto.

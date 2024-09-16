@@ -1,0 +1,96 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --color-primary: #f7decb;
+  --color-secondary: #9c7561;
+  --color-erro-sugestao: #e42f29;
+  --color-acerto-sugestao: #15ff00;
+  --color-padrao-sugestao: #4c4c4c;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+header{
+  height: 10vh;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+main{
+  height: 85vh;
+  background-color: var(--color-primary);
+}
+
+.atributos{
+  display: flex;
+}
+
+.atributo{
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+  background-color: var(--color-padrao-sugestao);
+  margin: 20px;
+}
+
+footer{
+  height: 5vh;
+  display: flex;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+/*
+
+input
+
+
+*/
+
+.search-container {
+  position: relative;
+  width: 400px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.suggestions {
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  position: absolute;
+  width: 100%;
+  z-index: 9999;
+}
+
+.suggestions div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background-color: #f0f0f0;
+}
+
+.type {
+  font-size: 12px;
+  color: #666;
+}
