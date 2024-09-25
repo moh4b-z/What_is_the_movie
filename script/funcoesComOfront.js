@@ -5,51 +5,51 @@ document.getElementById('searchInput').addEventListener('input', function() {
     const suggestionsBox = document.getElementById('suggestionsBox');
 
     // Limpa o temporizador anterior
-    clearTimeout(debounceTimer);
+    clearTimeout(debounceTimer)
 
     // Define um novo temporizador para aguardar 0,5 segundos após a última tecla
     debounceTimer = setTimeout(async () => {
         // Só faz a requisição se o valor tiver pelo menos 3 letras
         if (query.length >= 3) {
-            const apiKey = '';
-            const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${apiKey}`;
+            const apiKey = '8f23043c'
+            const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${apiKey}`
 
             try {
-                const response = await fetch(url);
-                const data = await response.json();
+                const response = await fetch(url)
+                const data = await response.json()
 
                 // Limpa as sugestões anteriores
-                suggestionsBox.innerHTML = '';
+                suggestionsBox.innerHTML = ''
 
                 if (data.Response === "True") {
                     // Loop pelos resultados e adiciona cada um nas sugestões
                     data.Search.forEach(result => {
                         const suggestionItem = document.createElement('div');
-                        suggestionItem.textContent = result.Title;
+                        suggestionItem.textContent = result.Title
 
-                        const typeSpan = document.createElement('span');
+                        const typeSpan = document.createElement('span')
                         typeSpan.classList.add('type');
                         typeSpan.textContent = ` (${result.Type === 'movie' ? 'Filme' : 'Série'})`;
-                        suggestionItem.appendChild(typeSpan);
+                        suggestionItem.appendChild(typeSpan)
 
                         // Adiciona o item à lista de sugestões
-                        suggestionsBox.appendChild(suggestionItem);
+                        suggestionsBox.appendChild(suggestionItem)
 
                         // Evento para preencher o campo com o nome selecionado
                         suggestionItem.addEventListener('click', () => {
-                            document.getElementById('searchInput').value = result.Title;
-                            suggestionsBox.innerHTML = ''; // Limpa as sugestões
+                            document.getElementById('searchInput').value = result.Title
+                            suggestionsBox.innerHTML = '' // Limpa as sugestões
                         });
                     });
                 } else {
                     suggestionsBox.innerHTML = '<div>Nenhum resultado encontrado</div>';
                 }
             } catch (error) {
-                console.error('Erro na requisição:', error);
+                console.error('Erro na requisição:', error)
             }
         } else {
             // Limpa as sugestões se o input for menor que 3 caracteres
-            suggestionsBox.innerHTML = '';
+            suggestionsBox.innerHTML = ''
         }
     }, 1000); // 1 segundos de debounce
 });

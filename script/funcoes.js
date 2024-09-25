@@ -5,7 +5,6 @@ const APIIMDB = require('./funcoesParaAPI')
 function compararFilmes(filme1, filme2) {
     return {
         title: compararCampos(filme1.title, filme2.title),
-        year: compararCampos(filme1.year, filme2.year),
         released: compararCampos(filme1.released, filme2.released),
         runtime: compararCampos(filme1.runtime, filme2.runtime),
         director: compararMultiplosCampos(filme1.director, filme2.director),
