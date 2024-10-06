@@ -1,44 +1,106 @@
-Sim, a API do IMDb pode ter questões relacionadas a CORS (Cross-Origin Resource Sharing) e limitações de uso que podem afetar seu funcionamento, especialmente quando você está trabalhando com deploys em plataformas como GitHub Pages. Aqui estão algumas questões e soluções comuns que você pode encontrar:
 
-### **1. Problemas de CORS**
+crie uma função que vai receber dois obijetos e vai retonar um, como deve funcionar a função: os dois objetos vão ser desestruturados e cada elemento vai ser comparado um ao outro, os objetos possuem esses elementos neles:
+                Tdoos os elementos: "title: data.Title,          // Título
+                released: data.Released,    // Data de lançamento
+                runtime: data.Runtime,      // Duração
+                director: data.Director,    // Diretor
+                writer: data.Writer,        // Roteirista
+                actors: data.Actors,        // Elenco
+                genre: data.Genre,          // Gênero
+                country: data.Country,      // País de origem
+                ratings: data.Ratings,      // Avaliações
+                plot: data.Plot,            // Descrição
+                boxOffice: data.BoxOffice,  // Bilheteria
+                production: data.Production,// Produtora
+                poster: data.Poster         // URL do pôster"
 
-#### O que é CORS?
-CORS é um mecanismo de segurança dos navegadores que restringe como os recursos em uma página web podem ser solicitados de um domínio diferente daquele que serviu a página. Isso significa que se sua aplicação web está hospedada em um domínio (por exemplo, `https://meusite.github.io`), ela pode ter restrições ao tentar fazer requisições para uma API que está em outro domínio (por exemplo, `http://www.omdbapi.com`).
+Esses objetos vão ter cido criados por uma função que usa a API do IMDb essa função:
 
-#### Soluções para Problemas de CORS:
-- **Proxy:** Utilize um proxy para fazer as requisições à API. Um proxy é um servidor que atua como intermediário entre seu cliente (o navegador) e a API. Você pode configurar um proxy em seu servidor ou usar serviços de proxy públicos como [CORS Anywhere](https://cors-anywhere.herokuapp.com/). No entanto, usar proxies públicos pode não ser ideal para produção.
+async function descMovie(titulo) {
+    // Armazena o título do filme na variável 'movieTitle' 
+    let movieTitle = titulo
 
-    Exemplo:
-    ```javascript
-    const url = `https://cors-anywhere.herokuapp.com/https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=${apiKey}`;
-    ```
+    // Chave de API do OMDb para autenticação
+    const apiKey = '8f23043c'
 
-- **Configuração do Servidor:** Se você controlar o servidor que fornece a API, configure os cabeçalhos CORS para permitir solicitações de diferentes domínios.
+    // URL da API OMDb para buscar informações do filme, com o título do filme codificado para a URL
+    const url = `https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=${apiKey}`
+    
+    try {
+        // Realiza a requisição HTTP à URL da API OMDb
+        const response = await fetch(url)
+        
+        // Converte a resposta da API em formato JSON
+        const data = await response.json()
+        
+        // Verifica se a resposta da API foi bem-sucedida (data.Response === "True")
+        if (data.Response === "True") {
+            // Exibe as informações do filme no console
+            // console.log("Título:", data.Title)
+            // console.log("Ano de Lançamento:", data.Year)
+            // console.log("Data de Lançamento:", data.Released)
+            // console.log("Tempo de duração:", data.Runtime)
 
-### **2. Limitações da API**
+            // console.log("Diretor:", data.Director)
+            // console.log("Roterista/escritor:", data.Writer)
+            // console.log("Atores:", data.Actors)
 
-#### Limitações Comuns:
-- **Limites de Requisições:** Muitas APIs têm limites de requisições por minuto, hora ou dia. Isso é feito para evitar abuso e garantir que todos os usuários tenham uma quantidade justa de acesso.
+            // console.log("Gênero:", data.Genre)
+            // console.log("País:", data.Country)
+            // console.log("Avaliações:", data.Ratings)
+            // console.log("Descrição", data.Plot)
+            // console.log("Belheteria:", data.BoxOffice)
 
-- **Chave de API:** Algumas APIs exigem uma chave de API para autenticação e têm limites baseados na chave. Verifique se você está utilizando uma chave válida e se não excedeu o número de requisições permitidas.
+            // console.log("Pôster:", data.Poster)
 
-#### Soluções para Limitações de API:
-- **Planejamento de Uso:** Planeje o uso da API para garantir que você não exceda os limites de requisição. Utilize técnicas como cache para reduzir o número de requisições.
+            // Retorna um objeto com todas as informações detalhadas do filme
+            return {
+                title: data.Title,          // Título
+                released: data.Released,    // Data de lançamento
+                runtime: data.Runtime,      // Duração
+                director: data.Director,    // Diretor
+                writer: data.Writer,        // Roteirista
+                actors: data.Actors,        // Elenco
+                genre: data.Genre,          // Gênero
+                country: data.Country,      // País de origem
+                ratings: data.Ratings,      // Avaliações
+                plot: data.Plot,            // Descrição
+                boxOffice: data.BoxOffice,  // Bilheteria
+                production: data.Production,// Produtora
+                poster: data.Poster         // URL do pôster
+            };
+        } else {
+            // Se a resposta da API não for bem-sucedida, exibe o erro retornado pela API
+            console.log("Erro:", data.Error)
+            return null // Retorna 'null' se não encontrar o filme
+        }
+    } catch (error) {
+        // Captura e exibe qualquer erro que ocorra durante a requisição
+        console.error("Erro na requisição:", error)
+        return null // Retorna 'null' se houver erro na requisição
+    }
+}
 
-- **Alternativas:** Considere utilizar uma API diferente que tenha menos restrições ou seja mais adequada ao seu caso de uso. O [OMDb API](https://www.omdbapi.com/) pode ter limites dependendo do tipo de plano (gratuito ou pago).
+COMO vai ser o funcionamento:
 
-- **Armazenamento Local:** Armazene dados localmente para reduzir o número de chamadas à API. Por exemplo, você pode armazenar informações sobre filmes em um banco de dados local e atualizar esses dados periodicamente.
+var titulo1 = descMovie('Prikolica SPI-90')
+var titulo2 = descMovie('Iron Man 3')
 
-### **Exemplo de Configuração de Proxy em Desenvolvimento**
+ComparacaoDeFilme(titulo1, titulo2)
 
-Se estiver desenvolvendo localmente, você pode configurar um proxy para evitar problemas de CORS:
+O resultado final tem que funciona parecido como nesse exemplo, "ComparacaoDeFilme" é a função que você vai criados
+As condições de comparação são essas:
 
-1. **Crie um Proxy Local:**
-   Se você estiver usando Node.js, pode configurar um proxy local usando pacotes como `http-proxy-middleware`.
 
-2. **Utilize um Proxy Temporário:**
-   Para desenvolvimento, você pode usar proxies temporários, como `CORS Anywhere`, mas lembre-se de que isso não é recomendado para produção.
-
-### **Conclusão**
-
-Para problemas de CORS, a melhor solução é configurar os cabeçalhos CORS corretamente no servidor de destino ou usar um proxy confiável. Para limitações da API, é importante conhecer as restrições da API e planejar seu uso de acordo. Se a API que você está usando não atende às suas necessidades, considere alternativas que se encaixem melhor no seu projeto.
+Porém 'poster' e 'plot' não vão ser comparados, e o objeto que sair dessa função vai ter todos esses elementos (tirando 'poster' e 'plot), e cada elemento vai ser um 'arry'.
+O 'title' dos dois objetos vão ser comparados se eles forem iguais, o 'arry' de 'title' que vai retornar primeiro 'true' depois o 'title' do segundo objeto. Se forem diferente é para voltar 'false' como primeiro valor depois o 'title' do segundo objeto, se um dois 'title' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois.
+Em 'released' vai compara as duas datas, se forem iguais é para voltar 'true' como priemiro valor depois o 'released' do segundo objeto, e depois um sinal de '='. Se forem diferente é para voltar 'false' como primeiro valor depois o 'released' do segundo objeto, e depois um sinal de '<' ou '>' depedendo se o 'released' do segundo objeto foi antes ou depois do 'released' do primeiro objeto. Se um dois 'released' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois e treciero voltar '---'.
+Em 'runtime' vai compara as duas durações, se forem iguais é para voltar 'true' como priemiro valor depois o 'runtime' do segundo objeto, e depois um sinal de '='. Se forem diferente é para voltar 'false' como primeiro valor depois o 'runtime' do segundo objeto, e depois um sinal de '<' ou '>' depedendo se o 'runtime' do segundo objeto foi antes ou depois do 'runtime' do primeiro objeto. Se um dois 'runtime' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois e treciero voltar '---'.
+Em 'director' pode ter mais que um, então precisa compara todos os elementos em 'director', e retornar 'true' ou 'false' e o nome de um 'director' do segundo objeto, 'true' se o 'director' do segundo objeto tambem existir no primeiro, e 'false' se o 'director' do segundo objeto não existir no primeiro, isso para cada elemento dentro de 'director', Se um dois 'director' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois.
+Em 'writer' pode ter mais que um, então precisa compara todos os elementos em 'writer', e retornar 'true' ou 'false' e o nome de um 'writer' do segundo objeto, 'true' se o 'writer' do segundo objeto tambem existir no primeiro, e 'false' se o 'writer' do segundo objeto não existir no primeiro, isso para cada elemento dentro de 'writer', Se um dois 'writer' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois.
+Em 'actors' pode ter mais que um, então precisa compara todos os elementos em 'actors', e retornar 'true' ou 'false' e o nome de um 'actors' do segundo objeto, 'true' se o 'actors' do segundo objeto tambem existir no primeiro, e 'false' se o 'actors' do segundo objeto não existir no primeiro, isso para cada elemento dentro de 'actors', Se um dois 'actors' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois.
+Em 'genre' pode ter mais que um, então precisa compara todos os elementos em 'genre', e retornar 'true' ou 'false' e o nome de um 'genre' do segundo objeto, 'true' se o 'genre' do segundo objeto tambem existir no primeiro, e 'false' se o 'genre' do segundo objeto não existir no primeiro, isso para cada elemento dentro de 'genre', Se um dois 'genre' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois.
+Em 'country' pode ter mais que um, então precisa compara todos os elementos em 'country', e retornar 'true' ou 'false' e o nome de um 'country' do segundo objeto, 'true' se o 'country' do segundo objeto tambem existir no primeiro, e 'false' se o 'country' do segundo objeto não existir no primeiro, isso para cada elemento dentro de 'country', Se um dois 'country' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois.
+Em 'ratings' vai compara as duas durações, se forem iguais é para voltar 'true' como priemiro valor depois o 'ratings' do segundo objeto, e depois um sinal de '='. Se forem diferente é para voltar 'false' como primeiro valor depois o 'ratings' do segundo objeto, e depois um sinal de '<' ou '>' depedendo se o 'ratings' do segundo objeto foi antes ou depois do 'ratings' do primeiro objeto. Se um dois 'ratings' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois e treciero voltar '---'.
+Em 'boxOffice' vai compara as duas durações, se forem iguais é para voltar 'true' como priemiro valor depois o 'boxOffice' do segundo objeto, e depois um sinal de '='. Se forem diferente é para voltar 'false' como primeiro valor depois o 'boxOffice' do segundo objeto, e depois um sinal de '<' ou '>' depedendo se o 'boxOffice' do segundo objeto foi antes ou depois do 'boxOffice' do primeiro objeto. Se um dois 'boxOffice' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois e treciero voltar '---'.
+Em 'production' pode ter mais que um, então precisa compara todos os elementos em 'production', e retornar 'true' ou 'false' e o nome de um 'production' do segundo objeto, 'true' se o 'production' do segundo objeto tambem existir no primeiro, e 'false' se o 'production' do segundo objeto não existir no primeiro, isso para cada elemento dentro de 'production', Se um dois 'production' tiver vazio é para voltar 'null' primeiro valor depois uma mensagem se é o primeiro ou segundo objeto que tá vazio ou são os dois.

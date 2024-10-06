@@ -2,63 +2,118 @@
 
 const APIIMDB = require('./funcoesParaAPI')
 
-function compararFilmes(filme1, filme2) {
-    return {
-        title: compararCampos(filme1.title, filme2.title),
-        released: compararCampos(filme1.released, filme2.released),
-        runtime: compararCampos(filme1.runtime, filme2.runtime),
-        director: compararMultiplosCampos(filme1.director, filme2.director),
-        writer: compararMultiplosCampos(filme1.writer, filme2.writer),
-        actors: compararMultiplosCampos(filme1.actors, filme2.actors),
-        genre: compararMultiplosCampos(filme1.genre, filme2.genre),
-        country: compararMultiplosCampos(filme1.country, filme2.country),
-        ratings: compararRatings(filme1.ratings, filme2.ratings),
-        boxOffice: compararCampos(filme1.boxOffice, filme2.boxOffice),
-        production: compararCampos(filme1.production, filme2.production)
+function ComparacaoDeFilme(objeto1, objeto2) {
+    let obj1 = objeto1
+    let obj2 = objeto2
+    const resultado = {}
+
+    // Comparação dos campos especificados
+    resultado.title = obj1.title && obj2.title
+        ? [(obj1.title === obj2.title), obj2.title]
+        : [null, `Um ou ambos os títulos estão vazios`]
+
+    resultado.released = compararNumerosOuDatas(obj1.released, obj2.released, 'released')
+    resultado.runtime = compararNumerosOuDatas(obj1.runtime, obj2.runtime, 'runtime')
+
+    resultado.director = compararListas(obj1.director.split(', '), obj2.director.split(', '), 'director')
+    resultado.writer = compararListas(obj1.writer.split(', '), obj2.writer.split(', '), 'writer')
+    resultado.actors = compararListas(obj1.actors.split(', '), obj2.actors.split(', '), 'actors')
+    resultado.genre = compararListas(obj1.genre.split(', '), obj2.genre.split(', '), 'genre')
+    resultado.country = compararListas(obj1.country.split(', '), obj2.country.split(', '), 'country')
+
+    // Comparação de ratings (somente do IMDb)
+    const imdbRating1 = getImdbRating(obj1.ratings)
+    const imdbRating2 = getImdbRating(obj2.ratings)
+    resultado.ratings = compararNumerosOuDatas(imdbRating1, imdbRating2, 'ratings')
+
+    // Comparação de boxOffice
+    resultado.boxOffice = compararNumerosOuDatas(obj1.boxOffice, obj2.boxOffice, 'boxOffice')
+
+    // Comparação de production
+    resultado.production = compararListas(obj1.production.split(', '), obj2.production.split(', '), 'production')
+
+    return resultado
+}
+
+
+// Função para comparar valores numéricos ou de data
+function compararNumerosOuDatas(valor1, valor2, Campo){
+    let val1 = valor1
+    let val2 = valor2
+    let nomeCampo = Campo
+    if (!val1 || val1 === 'N/A') val1 = null
+    if (!val2 || val2 === 'N/A') val2 = null
+    if (!val1 && !val2){
+        return [null, `Os dois campos de ${nomeCampo} estão vazios`, '---']
+    }
+    if (!val1){
+        return [null, `O ${nomeCampo} do primeiro objeto está vazio`, '---']
+    }
+    if (!val2){ 
+        return [null, `O ${nomeCampo} do segundo objeto está vazio`, '---']
+    }
+    if (val1 === val2){
+        return [true, val2, '=']
+    }else{
+        return [false, val2, val1 > val2 ? '<' : '>']
     }
 }
 
-function compararCampos(campo1, campo2) {
-    if (!campo1 || !campo2) return null
-    return campo1 === campo2 ? true : false
+// Função auxiliar para comparar listas de elementos
+function compararListas (lista1, lista2, nomeCampo){
+    if ((!lista1 || lista1.includes('N/A')) && (!lista2 || lista2.includes('N/A'))){
+        return [[null, `Os dois campos de ${nomeCampo} estão vazios`]]
+    }
+    if (!lista1 || lista1.includes('N/A')){ 
+        return [[null, `O ${nomeCampo} do primeiro objeto está vazio`]]
+    }
+    if (!lista2 || lista2.includes('N/A')){ 
+        return [[null, `O ${nomeCampo} do segundo objeto está vazio`]]
+    }
+
+    const resultadoLista = lista2.map((item) => [
+        lista1.includes(item),
+        item
+    ])
+
+    return resultadoLista
 }
 
-function compararMultiplosCampos(campo1, campo2) {
-    if (!campo1 || !campo2) return null
-    const lista1 = campo1.split(',').map(e => e.trim())
-    const lista2 = campo2.split(',').map(e => e.trim())
-    return lista1.some(item => lista2.includes(item)) ? true : false
-}
-
-function compararRatings(ratings1, ratings2) {
-    if (!ratings1 || !ratings2) return null
-    const imdbRating1 = ratings1.find(rating => rating.Source === "Internet Movie Database")
-    const imdbRating2 = ratings2.find(rating => rating.Source === "Internet Movie Database")
-    if (!imdbRating1 || !imdbRating2) return null
-    return imdbRating1.Value === imdbRating2.Value ? true : false
-}
-
-// Função que busca os filmes e retorna um array com os dois filmes
-async function chegarVariaveis(titulo1, titulo2) {
-    let filme1 = await APIIMDB.descMovie(titulo1)
-    let filme2 = await APIIMDB.descMovie(titulo2)
-
-    if (filme1 && filme2) {
-        return [filme1, filme2]; // Retorna um array com os dois filmes
-    } else {
-        console.error("Erro ao buscar informações dos filmes")
+// Extrair a avaliação do IMDb dos ratings
+function getImdbRating(ratings){
+    if (!ratings || ratings === 'N/A'){ 
         return null
     }
+    const imdbRating = ratings.find(rating => rating.Source === 'Internet Movie Database')
+    return imdbRating ? imdbRating.Value : null
 }
 
-// Chama a função chegarVariaveis e compara os filmes
-chegarVariaveis('The Fast and the Furious', 'Planet of the Apes')
-    .then(([filme1, filme2]) => {
-        if (filme1 && filme2) {
-            console.log(compararFilmes(filme1, filme2))
-        }
-    })
-    .catch(err => {
-        console.error("Erro ao comparar filmes", err)
 
-    })
+async function compararFilmes() {
+
+    let titulo1 = await APIIMDB.descMovie('Iron Man 2')
+    let titulo2 = await APIIMDB.descMovie('Iron Man 3')
+
+    const resultadoComparacao = ComparacaoDeFilme(titulo1, titulo2)
+    return resultadoComparacao
+}
+
+async function compararFilmesCertos(FilmeMaquina, FilmeUsuario) {
+
+    let titulo1 = FilmeMaquina
+    let titulo2 = await APIIMDB.descMovie(FilmeUsuario)
+
+
+    const resultadoComparacao = ComparacaoDeFilme(titulo1, titulo2)
+    return resultadoComparacao
+}
+
+// Executando a função de comparação
+async function executarComparacao() {
+    let resultado = await compararFilmes()
+    console.log(resultado)
+}
+
+executarComparacao()
+
+
