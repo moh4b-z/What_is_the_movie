@@ -3,10 +3,28 @@
   margin: 0;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol, li{
+  list-style: none;
+}
+button{
+  border: none;
+}
+input{
+  border: none;
+  outline: none;
+}
+
 
 :root{
   --color-primary: #f7decb;
   --color-secondary: #9c7561;
+  --color-third: #6f4c3b;
+  --color-fourth: #f8c7bb;
   --color-erro-sugestao: #e42f29;
   --color-acerto-sugestao: #15ff00;
   --color-padrao-sugestao: #4c4c4c;
@@ -15,42 +33,118 @@
 body{
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 header{
   height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 1vh;
+  padding-inline: 5vh;
   background-color: var(--color-secondary);
   color: var(--color-primary);
 }
 
+header button{
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding-block: 2px;
+  padding-inline: 5px;
+  border-radius: 2px;
+  transition: 0.5s;
+}
+header button:hover{
+  padding-block: 3px;
+  padding-inline: 6px;
+  border-radius: 4px;
+}
+
+
+/*
+input
+*/
+
+.search-container {
+  position: relative;
+  width: 400px;
+}
+
+.escolha{
+  width: 100%;
+  padding-inline: 10px;
+  font-size: 16px;
+  background-color: transparent;
+  border-bottom: 1px solid var(--color-primary);
+  transition: 0.5s;
+  color: var(--color-primary);
+}
+
+.suggestions {
+  box-shadow: 3px 4px 5px var(--color-third);
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--color-third);
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.suggestions div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background-color: var(--color-secondary);
+}
+
+.type {
+  font-size: 12px;
+  color: var(--color-fourth);
+}
+
+
+
 main{
   height: 85vh;
   background-color: var(--color-primary);
-  display: flex;
-}
-.divisao1{
-  width: 20%;
-  height: 100%;
 }
 
-.divisao2{
-  max-width: 50%;
+.corpo{
+  width: 100%;
+  height: 100%;
+  padding: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  
+  align-items: center; 
+  position: relative;
+}
+.linha{
+  min-width: 1px;
+  width: 0.5vw;
+  max-width: 3px;
+  height: 100%;
+  position: absolute;
+  background-color: var(--color-secondary);
+  left: calc(80% - 10px);
 }
 
 .pricipal{
-  display: flex;
   flex-direction: column;
   align-items: center;
+  width: 80%;
+
 }
 
 .atributos{
   display: flex;
   flex-wrap: wrap;
-  width: 100%
+  width: 100%;
+  gap: 5px;
 }
 
 .caixaAtributos{
@@ -61,18 +155,23 @@ main{
 }
 
 .atributo{
-  width: 5vw;
-  height: 5vw;
-  border-radius: 50%;
+  min-width: 100px;
+  min-height: 20px;
+  border-radius: 50px;
+  padding: 5px;
   background-color: var(--color-padrao-sugestao);
   margin: 20px;
 }
 
-
-.divisao3{
-  width: 30%;
+.area{
+  width: 20%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px;
 }
+
 
 
 
@@ -83,50 +182,4 @@ footer{
   color: var(--color-primary);
   align-items: center;
   justify-content: center;
-}
-
-
-
-
-/*
-
-input
-
-
-*/
-
-.search-container {
-  position: relative;
-  width: 400px;
-}
-
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.suggestions {
-  border: 1px solid #ccc;
-  border-top: none;
-  max-height: 200px;
-  overflow-y: auto;
-  background-color: #fff;
-  position: absolute;
-  width: 100%;
-  z-index: 9999;
-}
-
-.suggestions div {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.suggestions div:hover {
-  background-color: #f0f0f0;
-}
-
-.type {
-  font-size: 12px;
-  color: #666;
 }
