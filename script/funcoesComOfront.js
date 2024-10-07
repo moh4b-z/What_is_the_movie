@@ -1,6 +1,6 @@
 let debounceTimer
 
-document.getElementById('searchInput').addEventListener('input', function () {
+document.querySelector('.escolha').addEventListener('input', function () {
     const query = this.value // Pega o valor digitado no input
     const suggestionsBox = document.getElementById('suggestionsBox')
 

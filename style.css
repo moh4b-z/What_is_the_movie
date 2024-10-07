@@ -108,6 +108,28 @@ input
   color: var(--color-fourth);
 }
 
+.suggestions::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Estilo para o trilho da barra de rolagem */
+.suggestions::-webkit-scrollbar-track {
+  background: var(--color-third);
+  border-radius: 10px;
+}
+
+/* Estilo para a barra de rolagem*/
+.suggestions::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 10px;
+  border: 2px solid var(--color-third);
+}
+
+/* Estilo para quando a rolagem está sendo (clicado ou arrastado) */
+.suggestions::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-fourth); 
+}
+
 
 
 main{
