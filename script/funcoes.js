@@ -2,6 +2,7 @@
 
 const APIIMDB = require('./funcoesParaAPI')
 
+
 function ComparacaoDeFilme(objeto1, objeto2) {
     let obj1 = objeto1
     let obj2 = objeto2
@@ -34,8 +35,6 @@ function ComparacaoDeFilme(objeto1, objeto2) {
 
     return resultado
 }
-
-// Função para comparar valores numéricos ou de data, retornando como objeto
 function compararNumerosOuDatas(valor1, valor2, Campo) {
     let val1 = valor1
     let val2 = valor2
@@ -59,7 +58,6 @@ function compararNumerosOuDatas(valor1, valor2, Campo) {
     }
 }
 
-// Função auxiliar para comparar listas de elementos, retornando objetos JSON
 function compararListasParaObjeto(lista1, lista2, nomeCampo) {
     if ((!lista1 || lista1.includes('N/A')) && (!lista2 || lista2.includes('N/A'))) {
         return [{ status: null, text: `Os dois campos de ${nomeCampo} estão vazios` }]
@@ -111,4 +109,75 @@ async function executarComparacao() {
 }
 
 executarComparacao()
+
+
+function passaParaFront(objeto){
+    let obj = objeto
+
+    corFundo(obj.title.status)
+    let title = document.querySelector('.title')
+    pReleased.textContent = obj.released.text
+
+    let Released = document.querySelector('.Released')
+    Released.style.backgroundColor = corFundo(obj.released.status)
+    let pReleased = document.querySelector('.pReleased')
+    let spanReleased = document.querySelector('.spanReleased')
+    pReleased.textContent = obj.released.text
+    spanReleased.textContent = obj.released.symbol
+
+
+    let Runtime = document.querySelector('.Runtime')
+    Runtime.style.backgroundColor = corFundo(obj.runtime.status)
+    let pRuntime = document.querySelector('.pRuntime')
+    let spanRuntime = document.querySelector('.spanRuntime')
+    pRuntime.textContent = obj.runtime.text
+    spanRuntime.textContent = obj.runtime.symbol
+    
+    obj.director.forEach(function(item){
+        corFundo(item.status)
+    })
+    obj.writer.forEach(function(item){
+        corFundo(item.status)
+    })
+    obj.actors.forEach(function(item){
+        corFundo(item.status)
+    })
+    obj.genre.forEach(function(item){
+        corFundo(item.status)
+    })
+    obj.country.forEach(function(item){
+        corFundo(item.status)
+    })
+    
+    let Ratings = document.querySelector('.Ratings')
+    Ratings.style.backgroundColor = corFundo(obj.ratings.status)
+    let pRatings = document.querySelector('.pRatings')
+    let spanRatings = document.querySelector('.spanRatings')
+    pRatings.textContent = obj.ratings.text
+    spanRatings.textContent = obj.ratings.symbol
+    
+    let boxOffice = document.querySelector('.boxOffice')
+    boxOffice.style.backgroundColor = corFundo(obj.boxOffice.status)
+    let pBoxOffice = document.querySelector('.pBoxOffice')
+    let spanBoxOffice = document.querySelector('.spanBoxOffice')
+    pBoxOffice.textContent = obj.boxOffice.text
+    spanBoxOffice.textContent = obj.boxOffice.symbol
+    
+
+    obj.production.forEach(function(item){
+        corFundo(item.status)
+    })
+}
+
+function corFundo(valor){
+    let resposta = "var(--color-padrao-sugestao)"
+    if(valor){
+        resposta = "var(--color-acerto-sugestao)"
+    }else if(!valor){
+        resposta = "var(--color-erro-sugestao)"
+    }else if(valor === null){
+        resposta
+    }
+    return resposta
+}
 

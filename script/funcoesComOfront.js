@@ -19,7 +19,7 @@ document.querySelector('.escolha').addEventListener('input', function () {
                 const data = await response.json()
 
                 // Limpa as sugestões anteriores
-                suggestionsBox.innerHTML = ''
+                suggestionsBox.textContent = ''
 
                 if (data.Response === "True") {
                     // Loop pelos resultados e adiciona cada um nas sugestões
@@ -38,11 +38,11 @@ document.querySelector('.escolha').addEventListener('input', function () {
                         // Evento para preencher o campo com o nome selecionado
                         suggestionItem.addEventListener('click', () => {
                             document.getElementById('searchInput').value = result.Title
-                            suggestionsBox.innerHTML = '' // Limpa as sugestões
+                            suggestionsBox.textContent = '' // Limpa as sugestões
                         })
                     })
                 } else {
-                    suggestionsBox.innerHTML = '<div>Nenhum resultado encontrado</div>'
+                    suggestionsBox.textContent = 'Nenhum resultado encontrado'
                 }
             } catch (error) {
                 console.error('Erro na requisição:', error)
@@ -60,6 +60,6 @@ document.addEventListener('click', function (event) {
 
     // Verifica se o clique foi fora da caixa de sugestões e do campo de busca
     if (!suggestionsBox.contains(event.target) && event.target !== searchInput) {
-        suggestionsBox.innerHTML = ''// Limpa as sugestões
+        suggestionsBox.textContent = ''// Limpa as sugestões
     }
 })
