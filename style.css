@@ -13,6 +13,7 @@ ul, ol, li{
 }
 button{
   border: none;
+  cursor: pointer;
 }
 input{
   border: none;
@@ -36,6 +37,24 @@ body{
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  position: relative;
+}
+
+.aviso{
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: 1px solid var(--color-fourth);
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px var(--color-third);
+  width: 30vw;
+  padding: 10px;
+  left: 35vw;
+  top: 25vh;
 }
 
 header{
@@ -62,7 +81,6 @@ header button:hover{
   padding-inline: 6px;
   border-radius: 4px;
 }
-
 
 /*
 input

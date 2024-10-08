@@ -63,3 +63,16 @@ document.addEventListener('click', function (event) {
         suggestionsBox.textContent = ''// Limpa as sugestões
     }
 })
+
+var aviso = document.querySelector('.aviso')
+var sobre = document.querySelector('.sobre')
+sobre.addEventListener('click', function() {
+
+    if(aviso.style.display == 'flex'){
+        aviso.style.display = 'none'
+    }else{
+        aviso.style.display = 'flex'
+    }
+ 
+
+})
