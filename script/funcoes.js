@@ -163,17 +163,118 @@ function passaParaFront(objeto){
         }
         
     })
-    obj.writer.forEach(function(item){
-        corFundo(item.status)
+    obj.writer.forEach(function(item, indice){
+        if(indice == 0){
+            let Writer = document.querySelector('#Writer')
+            Writer.style.backgroundColor = corFundo(item.status)
+            let pWriter = document.querySelector('.pWriter')
+            pWriter.textContent = obj.writer.text
+        }else{
+            let div = document.createElement('div')
+
+            div.classList.add('atributo')
+            div.id = `Writer${indice}`;
+
+            let paragrafo = document.createElement('p')
+
+            paragrafo.classList.add(`pWriter${indice}`)
+
+            paragrafo.textContent = obj.director.text
+
+
+            div.appendChild(paragrafo);
+
+            let allDirector = document.querySelector('.allWriter')
+            document.allDirector.appendChild(div);
+
+
+            div.style.backgroundColor = corFundo(item.status)
+        }
     })
-    obj.actors.forEach(function(item){
-        corFundo(item.status)
+    obj.actors.forEach(function(item, indice){
+        if(indice == 0){
+            let Actors = document.querySelector('#Actors')
+            Actors.style.backgroundColor = corFundo(item.status)
+            let pActors = document.querySelector('.pActors')
+            pActors.textContent = obj.actors.text
+        }else{
+            let div = document.createElement('div')
+
+            div.classList.add('atributo')
+            div.id = `Actors${indice}`;
+
+            let paragrafo = document.createElement('p')
+
+            paragrafo.classList.add(`pActors${indice}`)
+
+            paragrafo.textContent = obj.director.text
+
+
+            div.appendChild(paragrafo);
+
+            let allDirector = document.querySelector('.allActors')
+            document.allDirector.appendChild(div);
+
+
+            div.style.backgroundColor = corFundo(item.status)
+        }
     })
-    obj.genre.forEach(function(item){
-        corFundo(item.status)
+    obj.genre.forEach(function(item, indice){
+        if(indice == 0){
+            let Genre = document.querySelector('#Genre')
+            Genre.style.backgroundColor = corFundo(item.status)
+            let pGenre = document.querySelector('.pGenre')
+            pGenre.textContent = obj.genre.text
+        }else{
+            let div = document.createElement('div')
+
+            div.classList.add('atributo')
+            div.id = `Genre${indice}`;
+
+            let paragrafo = document.createElement('p')
+
+            paragrafo.classList.add(`pGenre${indice}`)
+
+            paragrafo.textContent = obj.director.text
+
+
+            div.appendChild(paragrafo);
+
+            let allDirector = document.querySelector('.allGenre')
+            document.allDirector.appendChild(div);
+
+
+            div.style.backgroundColor = corFundo(item.status)
+        }
     })
-    obj.country.forEach(function(item){
-        corFundo(item.status)
+    obj.country.forEach(function(item, indice){
+        if(indice == 0){
+            let Country = document.querySelector('#Country')
+            Country.style.backgroundColor = corFundo(item.status)
+            let pCountry = document.querySelector('.pCountry')
+            pCountry.textContent = obj.country.text
+        }else{
+            let div = document.createElement('div')
+
+            div.classList.add('atributo')
+            div.id = `Country${indice}`;
+
+            let paragrafo = document.createElement('p')
+
+            paragrafo.classList.add(`pCountry${indice}`)
+
+            paragrafo.textContent = obj.director.text
+
+
+            div.appendChild(paragrafo);
+
+            let allDirector = document.querySelector('.allCountry')
+            document.allDirector.appendChild(div);
+
+
+            div.style.backgroundColor = corFundo(item.status)
+        }
+        
     })
     
     let Ratings = document.querySelector('#Ratings')
@@ -191,8 +292,34 @@ function passaParaFront(objeto){
     spanBoxOffice.textContent = obj.boxOffice.symbol
     
 
-    obj.production.forEach(function(item){
-        corFundo(item.status)
+    obj.production.forEach(function(item, indice){
+        if(indice == 0){
+            let Production = document.querySelector('#Production')
+            Production.style.backgroundColor = corFundo(item.status)
+            let pProduction = document.querySelector('.pProduction')
+            pProduction.textContent = obj.production.text
+        }else{
+            let div = document.createElement('div')
+
+            div.classList.add('atributo')
+            div.id = `Production${indice}`;
+
+            let paragrafo = document.createElement('p')
+
+            paragrafo.classList.add(`pProduction${indice}`)
+
+            paragrafo.textContent = obj.director.text
+
+
+            div.appendChild(paragrafo);
+
+            let allDirector = document.querySelector('.allProduction')
+            document.allDirector.appendChild(div);
+
+
+            div.style.backgroundColor = corFundo(item.status)
+        }
+        
     })
 }
 
