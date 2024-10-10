@@ -1,5 +1,4 @@
-import { descMovie, RandomMovie } from './funcoesParaAPI.js'
-import { passaParaFront, compararFilmes } from './funcoes.js'
+
 let debounceTimer
 
 var inputEscolha = document.querySelector('.escolha')

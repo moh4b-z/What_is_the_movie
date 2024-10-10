@@ -1,6 +1,6 @@
 // const { title, year, released, runtime, director, writer, actors, genre, country, ratings, plot, boxOffice, production, poster } = descMovie;
 
-import * as APIIMDB from './funcoesParaAPI.js'
+const APIIMDB = require('./funcoesParaAPI')
 
 
 function ComparacaoDeFilme(objeto1, objeto2) {
@@ -335,5 +335,8 @@ function corFundo(valor){
     return resposta
 }
 
-export { passaParaFront, compararFilmes }
 
+module.exports = {
+    passaParaFront,
+    compararFilmes
+}
