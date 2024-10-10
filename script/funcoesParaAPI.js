@@ -137,8 +137,5 @@ async function RandomMovie(tipo, genero = '', ano = '') {
     return saida
 }
 
+export { descMovie, RandomMovie }
 
-module.exports = {
-    descMovie,
-    RandomMovie
-}

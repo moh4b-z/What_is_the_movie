@@ -1,6 +1,10 @@
+import { descMovie, RandomMovie } from './funcoesParaAPI.js'
+import { passaParaFront, compararFilmes } from './funcoes.js'
 let debounceTimer
 
-document.querySelector('.escolha').addEventListener('input', function () {
+var inputEscolha = document.querySelector('.escolha')
+
+inputEscolha.addEventListener('input', function () {
     const query = this.value // Pega o valor digitado no input
     const suggestionsBox = document.getElementById('suggestionsBox')
 
@@ -32,13 +36,13 @@ document.querySelector('.escolha').addEventListener('input', function () {
                         releaseDateSpan.textContent = ` (Lançamento: ${result.Year})` // Exibe o ano de lançamento
                         suggestionItem.appendChild(releaseDateSpan)
 
-                        // Adiciona o item à lista de sugestões
+                        
                         suggestionsBox.appendChild(suggestionItem)
 
                         // Evento para preencher o campo com o nome selecionado
                         suggestionItem.addEventListener('click', () => {
-                            document.getElementById('searchInput').value = result.Title
-                            suggestionsBox.textContent = '' // Limpa as sugestões
+                            inputEscolha.value = result.Title
+                            suggestionsBox.textContent = '' 
                         })
                     })
                 } else {
@@ -49,9 +53,9 @@ document.querySelector('.escolha').addEventListener('input', function () {
             }
         } else {
             // Limpa as sugestões se o input for menor que 3 caracteres
-            suggestionsBox.innerHTML = ''
+            suggestionsBox.textContent = ''
         }
-    }, 500) // 1 segundo de debounce
+    }, 500)
 })
 
 document.addEventListener('click', function (event) {
@@ -73,6 +77,24 @@ sobre.addEventListener('click', function() {
     }else{
         aviso.style.display = 'flex'
     }
- 
 
+})
+
+
+var play = document.querySelector('.play')
+
+
+play.addEventListener('click', function() {
+    inputEscolha.addEventListener('keydown', function(event) {
+        
+        if (event.key === 'Enter') {
+
+            let valorEscolhido = inputEscolha.value
+    
+            console.log('Valor guardado: ', valorEscolhido)
+            
+            //limpar o campo de input após capturar o valor
+            inputEscolha.value = ''
+        }
+    })
 })
