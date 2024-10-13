@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./CSS/style.css">
     <title>Qual é o filme?</title>
 </head>
 <body>
     <header>
-        <h1>What is the movie?</h1>
-        <div class="search-container">
-            <input type="text" class="escolha" placeholder="Digite o nome de um filme ou série..." autocomplete="off">
-            <div class="suggestions" id="suggestionsBox"></div>
+        <div>
+            <h1>What is the movie?</h1>
+            <div class="search-container">
+                <input type="text" class="escolha" placeholder="Digite o nome de um filme ou série..." autocomplete="off">
+                <div class="suggestions" id="suggestionsBox"></div>
+            </div>
         </div>
+        
         <button class="sobre">Sobre</button>
     </header>
     <main>
         <div class="corpo">
+            <div class="buttonArea">
+
+                <button class="play">Play</button>
+                <button class="GiveUp">Give Up</button>
+                <div class="tip">
+                    <button>Tip</button>
+                    <img src="#" alt="">                
+                </div>
+                <div>
+                    <h3>Description of the machine film:</h3>
+                    <span></span>
+                </div>
+
+            </div>
             
             <div class="pricipal">
                 <div id="title">
@@ -108,21 +125,7 @@
                     </div>
                 </div>
             </div>
-            <div class="area">
-                <span>O nome do filme precisa ser em inglês</span>
-                <span>Os unícos filmes que o jogo funciona são do site IMDB</span>
-                <button class="play">Play</button>
-                <button>To give up</button>
-                <div class="tip">
-                    <button>Tip</button>
-                    <img src="" alt="">                
-                </div>
-                <div>
-                    <h3>Description of the machine film:</h3>
-                    <span></span>
-                </div>
-
-            </div>
+            
 
             <div class="linha"></div>
         </div>        
@@ -135,7 +138,7 @@
         <p>It's a project that started with advanced topics, the idea of ​​the game is that the machine will choose a film and you have to guess.</p>
         <p>Each attribute here will show what you got wrong, if the attribute turned green it means you got it right, if it turned red you got it wrong and in these cases if it's something like a number it will indicate if you got more or less wrong, and if it turned gray It's because one of the values ​​doesn't exist on the IMDb website</p>
     </div>
-    <script type="module" src="./script/funcoesComOfront.js"></script>
-    <script type="module" src="./script/funcoes.js"></script>
+    <script type="module" src="./JS/funcoesComOfront.js"></script>
+    <script type="module" src="./JS/funcoes.js"></script>
 </body>
 </html>

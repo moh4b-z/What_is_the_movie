@@ -1,4 +1,5 @@
-{{
+[
+  {
     "Title": "The Fast and the Furious",
     "Year": "2001",
     "Rated": "PG-13",
@@ -25,8 +26,7 @@
     "Production": "Universal Pictures",
     "Website": "N/A",
     "Response": "True"
-  }
-
+  },
   {
     "Title": "Winter Is Coming",
     "Year": "2011",
@@ -46,5 +46,4 @@
     "Type": "episode",
     "Response": "True"
   }
-  
-  }
+]

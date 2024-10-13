@@ -67,6 +67,9 @@ header{
   background-color: var(--color-secondary);
   color: var(--color-primary);
 }
+header div{
+  display: flex;
+}
 
 header button{
   background-color: var(--color-primary);
@@ -107,8 +110,11 @@ input
   max-height: 200px;
   overflow-y: auto;
   background-color: var(--color-third);
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 100%;
+  top:100%;
   z-index: 1;
 }
 
@@ -170,13 +176,14 @@ main{
   height: 100%;
   position: absolute;
   background-color: var(--color-secondary);
-  left: calc(80% - 10px);
+  left: calc(20% + 10px);
 }
 
 .pricipal{
   flex-direction: column;
   align-items: center;
   width: 80%;
+  padding-inline: 1%;
 
 }
 
@@ -203,13 +210,46 @@ main{
   margin: 20px;
 }
 
-.area{
+.buttonArea{
   width: 20%;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 4px;
+}
+.buttonArea button{
+  background-color: var(--color-third);
+  color: var(--color-primary);
+  padding: 1%;
+  border-radius: 50px;
+}
+.buttonArea button:hover{
+  background-color: var(--color-secondary);
+}
+
+.play{
+  animation: indicativo 2s infinite;
+}
+.GiveUp{
+  animation: none;
+}
+
+/* .play:hover{
+  animation: none;
+} */
+
+
+@keyframes indicativo {
+  25%{
+    transform: scale(1.05);
+  }
+  
+}
+.tip{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 

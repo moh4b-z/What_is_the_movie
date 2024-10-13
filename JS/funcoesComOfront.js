@@ -81,9 +81,22 @@ sobre.addEventListener('click', function() {
 
 
 var play = document.querySelector('.play')
+var GiveUp = document.querySelector('.GiveUp')
 
 
 play.addEventListener('click', function() {
+    play.style.animation = 'none'
+    play.style.display = 'none'
+
+    GiveUp.addEventListener('click', function() {
+        if(GiveUp.textContent == 'Give Up'){
+            GiveUp.style.animation = 'indicativo 2s infinite'
+            inputEscolha.style.display = 'none'
+            GiveUp.textContent = 'Play again'
+        }else if(GiveUp.textContent == 'Play again'){
+            location.reload()
+        }     
+    })
     inputEscolha.addEventListener('keydown', function(event) {
         
         if (event.key === 'Enter') {
