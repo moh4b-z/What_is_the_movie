@@ -54,7 +54,7 @@ export async function descMovie(titulo) {
                 boxOffice: data.BoxOffice,  // Bilheteria
                 production: data.Production,// Produtora
                 poster: data.Poster         // URL do pôster
-            };
+            }
         } else {
             // Se a resposta da API não for bem-sucedida, exibe o erro retornado pela API
             console.log("Erro:", data.Error)
@@ -69,71 +69,4 @@ export async function descMovie(titulo) {
 
 
 
-//função para escolher um filme "aleatorio"
-export async function RandomMovie(tipo, genero = '', ano = '') {
-    let type = tipo
-    let yearFrom = ano || 1900 // Se o ano não for fornecido, será considerado a partir de 1900
-    let saida = false
-    const apiKey = '8f23043c'
-    let results = []
-
-    for (let i = 0; i < 5; i++) {
-        // Se o ano não for fornecido, não calcula o randomYear
-        const randomYear = ano ? Math.floor(Math.random() * (new Date().getFullYear() - yearFrom + 1)) + yearFrom : '';
-        const randomPage = Math.floor(Math.random() * 100) + 1 // OMDb tem limite de 100 páginas
-
-        // Constrói a URL com base no tipo, ano e página
-        let url = `https://www.omdbapi.com/?type=${type}&page=${randomPage}&apikey=${apiKey}`;
-        if (randomYear) url += `&y=${randomYear}` // Inclui o ano se disponível
-
-        try {
-            const response = await fetch(url)
-            const data = await response.json()
-
-            if (data.Response === "True") {
-                results = data.Search // Armazena os resultados da busca
-                break // Se tiver resultados, sai do loop
-            } else {
-                console.error("Erro na resposta da API:", data.Error); // Erro retornado pela API
-            }
-        } catch (error) {
-            console.error("Erro na requisição:", error)
-            break // Parar o loop ao encontrar um erro
-        }
-    }
-
-    if (results.length > 0) {
-        // Filtra filmes pelo gênero se o gênero for fornecido
-        for (let result of results) {
-            const detailedUrl = `https://www.omdbapi.com/?i=${result.imdbID}&apikey=${apiKey}`
-            try {
-                const detailedResponse = await fetch(detailedUrl)
-                const detailedData = await detailedResponse.json()
-
-                // Se o gênero foi fornecido, verifica se o gênero corresponde
-                if (detailedData.Response === "True" && (genero === '' || detailedData.Genre.includes(genero))) {
-                    console.log("Título Escolhido:", detailedData.Title)
-                    console.log("Ano:", detailedData.Year)
-                    console.log("Tipo:", detailedData.Type)
-                    console.log("Gênero:", detailedData.Genre)
-                    console.log("ID IMDb:", detailedData.imdbID)
-                    console.log("Poster:", detailedData.Poster)
-
-                    saida = detailedData.Title
-                    break // Encerra após encontrar um filme válido
-                }
-            } catch (error) {
-                console.error("Erro ao obter detalhes:", error)
-            }
-        }
-
-        if (!saida) {
-            console.log("Nenhum filme encontrado com os critérios fornecidos.")
-        }
-    } else {
-        console.log("Nenhum título encontrado com os critérios fornecidos.")
-    }
-
-    return saida
-}
 

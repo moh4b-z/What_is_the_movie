@@ -1,5 +1,5 @@
-import {preencherAnos} from './funcoesParaOfront.js'
-import {passaParaFront, compararFilmes, executarComparacao } from './funcoes.js'
+import {passaParaFront, preencherAnos} from './funcoesParaOfront.js'
+import {compararFilmes, executarComparacao } from './funcoes.js'
 import {descMovie, RandomMovie} from './funcoesParaAPI.js'
 
 
@@ -120,10 +120,10 @@ play.addEventListener('click', function() {
             let valorEscolhido = inputEscolha.value
             
             async function mostra(valor){
-                let desc = await descMovie(valor)
-                console.log(desc)
+                let resultado = await compararFilmes()
+                passaParaFront(resultado)
             }
-            mostra(valorEscolhido)
+            mostra()
             
             
             //limpar o campo de input após capturar o valor
