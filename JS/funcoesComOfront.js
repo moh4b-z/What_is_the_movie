@@ -1,8 +1,23 @@
 
-let debounceTimer
+
+
+var anoAtual = new Date().getFullYear()
 
 var inputEscolha = document.querySelector('.escolha')
+var aviso = document.querySelector('.aviso')
+var sobre = document.querySelector('.sobre')
+var body = document.querySelector('body')
+var play = document.querySelector('.play')
+var GiveUp = document.querySelector('.GiveUp')
+var startingYear = document.getElementById('startingYear')
+var finalYear = document.getElementById('finalYear')
+var playArea = document.querySelector('.playArea')
+var tipBox = document.querySelector('.tipBox')
+var Description = document.querySelector('.Description')
 
+
+
+let debounceTimer
 inputEscolha.addEventListener('input', function () {
     const query = this.value // Pega o valor digitado no input
     const suggestionsBox = document.getElementById('suggestionsBox')
@@ -67,8 +82,7 @@ document.addEventListener('click', function (event) {
     }
 })
 
-var aviso = document.querySelector('.aviso')
-var sobre = document.querySelector('.sobre')
+
 sobre.addEventListener('click', function() {
 
     if(aviso.style.display == 'flex'){
@@ -79,18 +93,19 @@ sobre.addEventListener('click', function() {
 
 })
 
-
-var play = document.querySelector('.play')
-var GiveUp = document.querySelector('.GiveUp')
+Description.style.display = 'none'
+tipBox.style.display = 'none'
 
 
 play.addEventListener('click', function() {
-    play.style.animation = 'none'
-    play.style.display = 'none'
+    playArea.style.display = 'none'
+    GiveUp.style.display = 'flex'
+    tipBox.style.display = 'flex'
 
     GiveUp.addEventListener('click', function() {
         if(GiveUp.textContent == 'Give Up'){
             GiveUp.style.animation = 'indicativo 2s infinite'
+            Description.style.display = 'flex'
             inputEscolha.style.display = 'none'
             GiveUp.textContent = 'Play again'
         }else if(GiveUp.textContent == 'Play again'){
@@ -109,4 +124,28 @@ play.addEventListener('click', function() {
             inputEscolha.value = ''
         }
     })
+})
+
+
+function preencherAnos(select, startYear, endYear) {
+    select.textContent = ''
+    for (let year = startYear; year <= endYear; year++) {
+        let option = document.createElement('option')
+        option.value = year
+        option.textContent = year
+        select.appendChild(option)
+    }
+}
+
+preencherAnos(startingYear, 1900, anoAtual)
+preencherAnos(finalYear, 1900, anoAtual)
+
+
+startingYear.value = 2000
+finalYear.value = anoAtual
+
+startingYear.addEventListener('change', function() {
+    var anoSelecionado = parseInt(this.value)
+    preencherAnos(finalYear, anoSelecionado, anoAtual)
+    finalYear.value = anoSelecionado <= anoAtual ? anoAtual : anoSelecionado
 })
