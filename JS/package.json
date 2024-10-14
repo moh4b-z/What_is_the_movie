@@ -1,0 +1,12 @@
+{
+  "name": "busca-filme",
+  "version": "1.0.0",
+  "description": "Busca e comparação de filmes para um jogo web",
+  "main": "./funcoes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohammad Salim",
+  "license": "ISC",
+   "type": "module" 
+}

@@ -1,4 +1,6 @@
-
+import {preencherAnos} from './funcoesParaOfront.js'
+import {passaParaFront, compararFilmes, executarComparacao } from './funcoes.js'
+import {descMovie, RandomMovie} from './funcoesParaAPI.js'
 
 
 var anoAtual = new Date().getFullYear()
@@ -14,7 +16,6 @@ var finalYear = document.getElementById('finalYear')
 var playArea = document.querySelector('.playArea')
 var tipBox = document.querySelector('.tipBox')
 var Description = document.querySelector('.Description')
-
 
 
 let debounceTimer
@@ -117,8 +118,13 @@ play.addEventListener('click', function() {
         if (event.key === 'Enter') {
 
             let valorEscolhido = inputEscolha.value
-    
-            console.log('Valor guardado: ', valorEscolhido)
+            
+            async function mostra(valor){
+                let desc = await descMovie(valor)
+                console.log(desc)
+            }
+            mostra(valorEscolhido)
+            
             
             //limpar o campo de input após capturar o valor
             inputEscolha.value = ''
@@ -126,16 +132,6 @@ play.addEventListener('click', function() {
     })
 })
 
-
-function preencherAnos(select, startYear, endYear) {
-    select.textContent = ''
-    for (let year = startYear; year <= endYear; year++) {
-        let option = document.createElement('option')
-        option.value = year
-        option.textContent = year
-        select.appendChild(option)
-    }
-}
 
 preencherAnos(startingYear, 1900, anoAtual)
 preencherAnos(finalYear, 1900, anoAtual)

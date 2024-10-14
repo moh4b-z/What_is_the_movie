@@ -2,7 +2,7 @@
 
 
 //pegar as descrição do filme ou serie
-async function descMovie(titulo) {
+export async function descMovie(titulo) {
     // Armazena o título do filme na variável 'movieTitle' 
     let movieTitle = titulo
 
@@ -70,7 +70,7 @@ async function descMovie(titulo) {
 
 
 //função para escolher um filme "aleatorio"
-async function RandomMovie(tipo, genero = '', ano = '') {
+export async function RandomMovie(tipo, genero = '', ano = '') {
     let type = tipo
     let yearFrom = ano || 1900 // Se o ano não for fornecido, será considerado a partir de 1900
     let saida = false
@@ -137,8 +137,3 @@ async function RandomMovie(tipo, genero = '', ano = '') {
     return saida
 }
 
-
-module.exports = {
-    descMovie,
-    RandomMovie
-}

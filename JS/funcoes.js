@@ -1,6 +1,7 @@
 // const { title, year, released, runtime, director, writer, actors, genre, country, ratings, plot, boxOffice, production, poster } = descMovie;
 
-const APIIMDB = require('./funcoesParaAPI')
+
+import {descMovie, RandomMovie} from './funcoesParaAPI.js'
 
 
 function ComparacaoDeFilme(objeto1, objeto2) {
@@ -87,8 +88,8 @@ function getImdbRating(ratings) {
 }
 
 async function compararFilmes() {
-    let titulo1 = await APIIMDB.descMovie('Iron Man 2')
-    let titulo2 = await APIIMDB.descMovie('Iron Man')
+    let titulo1 = await descMovie('Iron Man 2')
+    let titulo2 = await descMovie('Iron Man')
 
     const resultadoComparacao = ComparacaoDeFilme(titulo1, titulo2)
     return resultadoComparacao
@@ -96,7 +97,7 @@ async function compararFilmes() {
 
 async function compararFilmesCertos(FilmeMaquina, FilmeUsuario) {
     let titulo1 = FilmeMaquina
-    let titulo2 = await APIIMDB.descMovie(FilmeUsuario)
+    let titulo2 = await descMovie(FilmeUsuario)
 
     const resultadoComparacao = ComparacaoDeFilme(titulo1, titulo2)
     return resultadoComparacao
@@ -336,7 +337,4 @@ function corFundo(valor){
 }
 
 
-module.exports = {
-    passaParaFront,
-    compararFilmes
-}
+export { passaParaFront, compararFilmes, executarComparacao }
