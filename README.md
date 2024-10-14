@@ -7,10 +7,10 @@ Foi o meu primeiro projeto usando uma API e trabalhando com outros conceitos que
 - Objetos
 - Desestruturação de objetos
 - Função assíncrona
+- ES6 Modules
 
-Isso tudo em JavaScript, mesmo sendo algo que ainda não tenha aprendido com mais clareza no Curso de desenvolvimento de sistema do [SENAI Jandira](https://sp.senai.br/unidade/jandira/) isso que estou ainda no primero terço do segundo semestre.
+Isso tudo em JavaScript, mesmo sendo algo que ainda não tenha aprendido com mais clareza no Curso de desenvolvimento de sistema do [SENAI Jandira](https://sp.senai.br/unidade/jandira/) por ainda nem ter terminado o segundo semestre.
 
-Porém já me senti confortavel em toma a frente do projeto e ser quem planejou o projeto, fez o back-end e conctou com o front.
 
 ### [Descubra o filme agora](https://qual-o-filme.netlify.app/)
 
