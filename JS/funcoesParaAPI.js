@@ -69,4 +69,4 @@ export async function descMovie(titulo) {
 
 
 
-
+//função para escolher um filme "aleatorio"

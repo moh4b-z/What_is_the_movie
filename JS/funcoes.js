@@ -1,7 +1,7 @@
 // const { title, year, released, runtime, director, writer, actors, genre, country, ratings, plot, boxOffice, production, poster } = descMovie;
 
 
-import {descMovie, RandomMovie} from './funcoesParaAPI.js'
+import {descMovie} from './funcoesParaAPI.js'
 
 
 function ComparacaoDeFilme(objeto1, objeto2) {

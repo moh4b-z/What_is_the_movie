@@ -1,6 +1,6 @@
 import {passaParaFront, preencherAnos} from './funcoesParaOfront.js'
 import {compararFilmes, executarComparacao } from './funcoes.js'
-import {descMovie, RandomMovie} from './funcoesParaAPI.js'
+import {descMovie} from './funcoesParaAPI.js'
 
 
 var anoAtual = new Date().getFullYear()
