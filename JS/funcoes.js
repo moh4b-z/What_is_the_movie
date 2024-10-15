@@ -95,7 +95,7 @@ async function compararFilmes() {
     return resultadoComparacao
 }
 
-async function compararFilmesCertos(FilmeMaquina, FilmeUsuario) {
+export async function compararFilmesCertos(FilmeMaquina, FilmeUsuario) {
     let titulo1 = FilmeMaquina
     let titulo2 = await descMovie(FilmeUsuario)
 

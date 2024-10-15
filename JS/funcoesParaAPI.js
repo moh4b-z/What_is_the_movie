@@ -66,7 +66,78 @@ export async function descMovie(titulo) {
         return null // Retorna 'null' se houver erro na requisição
     }
 }
+const apiKey = '574110c6eea0bc0675c6fbc0375d87a8'
+async function RandomMovie(genre, startYear, endYear) {
+    if (endYear < startYear) {
+        endYear = startYear
+    }
+
+    let apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&primary_release_date.gte=${startYear}-01-01&primary_release_date.lte=${endYear}-12-31`
+
+    // Se o gênero não for 'NoGender', adicione o parâmetro de gênero à URL
+    if (genre !== 'NoGender') {
+        let genreId = await getGenreId(genre) // Obtenha o ID do gênero
+        if (genreId) {
+            apiUrl += `&with_genres=${genreId}`
+        }
+    }
+
+    // Fazendo a requisição para a API e obtendo os filmes
+    let response = await fetch(apiUrl)
+    
+    if (!response.ok) { 
+        console.error('Erro na requisição:', response.statusText)
+        return 'Erro ao buscar filmes.'
+    }
+    let information = await response.json()
 
 
+    if (information.results.length > 0) {
+        let randomIndex = Math.floor(Math.random() * information.results.length)
+        return information.results[randomIndex].title// Retorna apenas o nome do filme
+    } else {
+        return 'Nenhum filme encontrado com esses critérios.'
+    }
+}
 
-//função para escolher um filme "aleatorio"
+// Função auxiliar para obter o ID do gênero a partir de seu nome
+async function getGenreId(genreName) {
+
+    let genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+
+    let response = await fetch(genreUrl)
+    
+    if (!response.ok) { // Verifique se a resposta é OK
+        console.error('Erro na requisição de gêneros:', response.statusText)
+        return null
+    }
+
+    let data = await response.json()
+    let genre = data.genres.find(g => g.name.toLowerCase() === genreName.toLowerCase())
+
+    return genre ? genre.id : null
+}
+
+export async function ativarComRepeticao(genre, startYear, endYear) {
+    let filme
+    let descricao
+
+    do {
+        filme = await RandomMovie(genre, startYear, endYear)
+        console.log(`Filme encontrado: ${filme}`)
+        descricao = await descMovie(filme)
+
+        // Se a descrição for null, significa que não encontrou o filme
+        if (descricao) {
+            // console.log(`Descrição encontrada: 
+            //     ${descricao}`)
+            return descricao
+        } else {
+            console.log(`Tentando novamente...`)
+        }
+    } while (!descricao) // Continua enquanto a descrição for null
+}
+
+// Chame a função ativarComRepeticao() para iniciar o processo
+// ativarComRepeticao('Animation', 2000, 2024);
+

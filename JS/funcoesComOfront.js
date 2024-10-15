@@ -1,6 +1,6 @@
 import {passaParaFront, preencherAnos} from './funcoesParaOfront.js'
-import {compararFilmes, executarComparacao } from './funcoes.js'
-import {descMovie} from './funcoesParaAPI.js'
+import {compararFilmes, executarComparacao, compararFilmesCertos } from './funcoes.js'
+import {descMovie, ativarComRepeticao} from './funcoesParaAPI.js'
 
 
 var anoAtual = new Date().getFullYear()
@@ -98,10 +98,11 @@ Description.style.display = 'none'
 tipBox.style.display = 'none'
 
 
-play.addEventListener('click', function() {
+play.addEventListener('click', async function() {
     playArea.style.display = 'none'
     GiveUp.style.display = 'flex'
     tipBox.style.display = 'flex'
+    let filmeMaquina = await ativarComRepeticao('NoGender', 2000, 2024)
 
     GiveUp.addEventListener('click', function() {
         if(GiveUp.textContent == 'Give Up'){
@@ -120,7 +121,7 @@ play.addEventListener('click', function() {
             let valorEscolhido = inputEscolha.value
             
             async function mostra(valor){
-                let resultado = await compararFilmes()
+                let resultado = await compararFilmesCertos(filmeMaquina, valorEscolhido)
                 passaParaFront(resultado)
             }
             mostra()
