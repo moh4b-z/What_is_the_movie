@@ -1,7 +1,5 @@
-// const { title, year, released, runtime, director, writer, actors, genre, country, ratings, plot, boxOffice, production, poster } = descMovie;
-
-
-import {descMovie} from './funcoesParaAPI.js'
+// const { title, year, released, runtime, director, writer, actors, genre, country, ratings, plot, boxOffice, production, poster } = descMovie
+import {descMovie, RandomMovie} from './APIfunction.js'
 
 
 function ComparacaoDeFilme(objeto1, objeto2) {
@@ -59,7 +57,10 @@ function compararNumerosOuDatas(valor1, valor2, Campo) {
     }
 }
 
-function compararListasParaObjeto(lista1, lista2, nomeCampo) {
+function compararListasParaObjeto(array1, array2, Campo) {
+    let lista1 = array1
+    let lista2 = array2
+    let nomeCampo = Campo
     if ((!lista1 || lista1.includes('N/A')) && (!lista2 || lista2.includes('N/A'))) {
         return [{ status: null, text: `Os dois campos de ${nomeCampo} estão vazios` }]
     }
@@ -78,8 +79,8 @@ function compararListasParaObjeto(lista1, lista2, nomeCampo) {
     return resultadoLista
 }
 
-// Extrair a avaliação do IMDb dos ratings
-function getImdbRating(ratings) {
+function getImdbRating(avaliacao) {
+    let ratings = avaliacao
     if (!ratings || ratings === 'N/A') {
         return null
     }
@@ -87,29 +88,54 @@ function getImdbRating(ratings) {
     return imdbRating ? imdbRating.Value : null
 }
 
-async function compararFilmes() {
+async function compararFilmesTeste() {
     let titulo1 = await descMovie('Iron Man 2')
     let titulo2 = await descMovie('Iron Man')
 
     const resultadoComparacao = ComparacaoDeFilme(titulo1, titulo2)
     return resultadoComparacao
 }
-
-export async function compararFilmesCertos(FilmeMaquina, FilmeUsuario) {
-    let titulo1 = FilmeMaquina
-    let titulo2 = await descMovie(FilmeUsuario)
-
-    const resultadoComparacao = ComparacaoDeFilme(titulo1, titulo2)
-    return resultadoComparacao
-}
-
 // Executando a função de comparação
 async function executarComparacao() {
-    let resultado = await compararFilmes()
+    let resultado = await compararFilmesTeste()
     console.log(resultado)
 }
 
 executarComparacao()
 
 
-export { compararFilmes, executarComparacao }
+async function compararFilmes(FilmeMaquina, FilmeUsuario) {
+    let titulo1 = FilmeMaquina
+    let titulo2 = await descMovie(FilmeUsuario)
+
+    let resultadoComparacao = ComparacaoDeFilme(titulo1, titulo2)
+    return resultadoComparacao
+}
+
+async function desistir(FilmeMaquina) {
+    let titulo1 = FilmeMaquina
+    let resultadoComparacao = ComparacaoDeFilme(titulo1, titulo1)
+    return resultadoComparacao
+}
+
+async function certaintyRandomMovie(genre, startYear, endYear) {
+    let filme
+    let descricao
+
+    do {
+        filme = await RandomMovie(genre, startYear, endYear)
+        console.log(`Filme encontrado: ${filme}`)
+        descricao = await descMovie(filme)
+
+        // Se a descrição for null, significa que não encontrou o filme
+        if (descricao) {
+            // console.log(`Descrição encontrada: 
+            //     ${descricao}`)
+            return descricao
+        } else {
+            console.log(`Tentando novamente...`)
+        }
+    } while (!descricao) // Continua enquanto a descrição for null
+}
+
+export { compararFilmes, certaintyRandomMovie, desistir}

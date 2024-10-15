@@ -1,12 +1,9 @@
 
-
-
 //pegar as descrição do filme ou serie
-export async function descMovie(titulo) {
-    // Armazena o título do filme na variável 'movieTitle' 
+async function descMovie(titulo) {
+ 
     let movieTitle = titulo
 
-    // Chave de API do OMDb para autenticação
     const apiKey = '8f23043c'
 
     // URL da API OMDb para buscar informações do filme, com o título do filme codificado para a URL
@@ -19,9 +16,7 @@ export async function descMovie(titulo) {
         // Converte a resposta da API em formato JSON
         const data = await response.json()
         
-        // Verifica se a resposta da API foi bem-sucedida (data.Response === "True")
         if (data.Response === "True") {
-            // Exibe as informações do filme no console
             // console.log("Título:", data.Title)
             // console.log("Ano de Lançamento:", data.Year)
             // console.log("Data de Lançamento:", data.Released)
@@ -38,8 +33,6 @@ export async function descMovie(titulo) {
             // console.log("Belheteria:", data.BoxOffice)
 
             // console.log("Pôster:", data.Poster)
-
-            // Retorna um objeto com todas as informações detalhadas do filme
             return {
                 title: data.Title,          // Título
                 released: data.Released,    // Data de lançamento
@@ -56,7 +49,6 @@ export async function descMovie(titulo) {
                 poster: data.Poster         // URL do pôster
             }
         } else {
-            // Se a resposta da API não for bem-sucedida, exibe o erro retornado pela API
             console.log("Erro:", data.Error)
             return null // Retorna 'null' se não encontrar o filme
         }
@@ -82,7 +74,6 @@ async function RandomMovie(genre, startYear, endYear) {
         }
     }
 
-    // Fazendo a requisição para a API e obtendo os filmes
     let response = await fetch(apiUrl)
     
     if (!response.ok) { 
@@ -94,12 +85,11 @@ async function RandomMovie(genre, startYear, endYear) {
 
     if (information.results.length > 0) {
         let randomIndex = Math.floor(Math.random() * information.results.length)
-        return information.results[randomIndex].title// Retorna apenas o nome do filme
+        return information.results[randomIndex].title
     } else {
         return 'Nenhum filme encontrado com esses critérios.'
     }
 }
-
 // Função auxiliar para obter o ID do gênero a partir de seu nome
 async function getGenreId(genreName) {
 
@@ -118,26 +108,4 @@ async function getGenreId(genreName) {
     return genre ? genre.id : null
 }
 
-export async function ativarComRepeticao(genre, startYear, endYear) {
-    let filme
-    let descricao
-
-    do {
-        filme = await RandomMovie(genre, startYear, endYear)
-        console.log(`Filme encontrado: ${filme}`)
-        descricao = await descMovie(filme)
-
-        // Se a descrição for null, significa que não encontrou o filme
-        if (descricao) {
-            // console.log(`Descrição encontrada: 
-            //     ${descricao}`)
-            return descricao
-        } else {
-            console.log(`Tentando novamente...`)
-        }
-    } while (!descricao) // Continua enquanto a descrição for null
-}
-
-// Chame a função ativarComRepeticao() para iniciar o processo
-// ativarComRepeticao('Animation', 2000, 2024);
-
+export { descMovie, RandomMovie}

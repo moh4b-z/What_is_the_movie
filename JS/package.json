@@ -2,7 +2,7 @@
   "name": "busca-filme",
   "version": "1.0.0",
   "description": "Busca e comparação de filmes para um jogo web",
-  "main": "./funcoes.js",
+  "main": "./main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

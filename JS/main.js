@@ -1,7 +1,5 @@
-import {passaParaFront, preencherAnos} from './funcoesParaOfront.js'
-import {compararFilmes, executarComparacao, compararFilmesCertos } from './funcoes.js'
-import {descMovie, ativarComRepeticao} from './funcoesParaAPI.js'
-
+import {passaParaFront, preencherAnos} from './module/FRONTfunction.js'
+import {compararFilmes, certaintyRandomMovie, desistir} from './module/function.js'
 
 var anoAtual = new Date().getFullYear()
 
@@ -121,7 +119,7 @@ play.addEventListener('click', async function() {
             let valorEscolhido = inputEscolha.value
             
             async function mostra(valor){
-                let resultado = await compararFilmesCertos(filmeMaquina, valorEscolhido)
+                let resultado = await compararFilmes(filmeMaquina, valorEscolhido)
                 passaParaFront(resultado)
             }
             mostra()
