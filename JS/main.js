@@ -9,17 +9,26 @@ var sobre = document.querySelector('.sobre')
 var body = document.querySelector('body')
 var play = document.querySelector('.play')
 var GiveUp = document.querySelector('.GiveUp')
+var playArea = document.querySelector('.playArea')
+
+var tipBox = document.querySelector('.tipBox')
+var imgTip = document.querySelector('.tipBox > img')
+
+var Description = document.querySelector('.Description')
+var imgDescription = document.querySelector('.Description > img')
+var h4Description = document.querySelector('.Description > h4')
+var spanDescription = document.querySelector('.Description > span')
+var pDescription = document.querySelector('.Description > p')
+
+var MovieGenre = document.getElementById('MovieGenre')
 var startingYear = document.getElementById('startingYear')
 var finalYear = document.getElementById('finalYear')
-var playArea = document.querySelector('.playArea')
-var tipBox = document.querySelector('.tipBox')
-var Description = document.querySelector('.Description')
 
 
 let debounceTimer
 inputEscolha.addEventListener('input', function () {
-    const query = this.value // Pega o valor digitado no input
-    const suggestionsBox = document.getElementById('suggestionsBox')
+    let query = this.value // Pega o valor digitado no input
+    let suggestionsBox = document.getElementById('suggestionsBox')
 
     // Limpa o temporizador anterior
     clearTimeout(debounceTimer)
@@ -28,12 +37,12 @@ inputEscolha.addEventListener('input', function () {
     debounceTimer = setTimeout(async () => {
         // Só faz a requisição se o valor tiver pelo menos 3 letras
         if (query.length >= 3) {
-            const apiKey = '8f23043c'
-            const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&type=movie&apikey=${apiKey}`
+            let apiKey = '8f23043c'
+            let url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&type=movie&apikey=${apiKey}`
 
             try {
-                const response = await fetch(url)
-                const data = await response.json()
+                let response = await fetch(url)
+                let data = await response.json()
 
                 // Limpa as sugestões anteriores
                 suggestionsBox.textContent = ''
@@ -41,10 +50,10 @@ inputEscolha.addEventListener('input', function () {
                 if (data.Response === "True") {
                     // Loop pelos resultados e adiciona cada um nas sugestões
                     data.Search.forEach(result => {
-                        const suggestionItem = document.createElement('div')
+                        let suggestionItem = document.createElement('div')
                         suggestionItem.textContent = result.Title
 
-                        const releaseDateSpan = document.createElement('span')
+                        let releaseDateSpan = document.createElement('span')
                         releaseDateSpan.classList.add('release-date')
                         releaseDateSpan.textContent = ` (Lançamento: ${result.Year})` // Exibe o ano de lançamento
                         suggestionItem.appendChild(releaseDateSpan)
@@ -65,19 +74,18 @@ inputEscolha.addEventListener('input', function () {
                 console.error('Erro na requisição:', error)
             }
         } else {
-            // Limpa as sugestões se o input for menor que 3 caracteres
             suggestionsBox.textContent = ''
         }
     }, 500)
 })
 
 document.addEventListener('click', function (event) {
-    const suggestionsBox = document.getElementById('suggestionsBox')
-    const searchInput = document.getElementById('searchInput')
+    let suggestionsBox = document.getElementById('suggestionsBox')
+    let searchInput = document.getElementById('searchInput')
 
     // Verifica se o clique foi fora da caixa de sugestões e do campo de busca
     if (!suggestionsBox.contains(event.target) && event.target !== searchInput) {
-        suggestionsBox.textContent = ''// Limpa as sugestões
+        suggestionsBox.textContent = ''
     }
 })
 
@@ -91,41 +99,74 @@ sobre.addEventListener('click', function() {
     }
 
 })
+document.addEventListener('click', function (event) {
+    // Verifica se o clique foi fora do aviso e fora do botão que abre o aviso
+    if (!aviso.contains(event.target) && !sobre.contains(event.target)) {
+        aviso.style.display = 'none';
+    }
+})
 
 Description.style.display = 'none'
 tipBox.style.display = 'none'
 
 
+
+
 play.addEventListener('click', async function() {
+    var MovieGValue = MovieGenre.value
+    var sYearValue = Number(startingYear.value)
+    var fYearValue = Number(finalYear.value)
+
     playArea.style.display = 'none'
     GiveUp.style.display = 'flex'
     tipBox.style.display = 'flex'
-    let filmeMaquina = await ativarComRepeticao('NoGender', 2000, 2024)
 
-    GiveUp.addEventListener('click', function() {
+    let filmeMaquina = await certaintyRandomMovie(MovieGValue, sYearValue, fYearValue)
+    let poster = filmeMaquina.poster
+    let title = filmeMaquina.title
+    let released = filmeMaquina.released
+    let plot = filmeMaquina.plot
+
+    imgTip.src = poster
+
+    imgDescription.src = poster
+    h4Description.textContent = title
+    spanDescription.textContent = released
+    pDescription.textContent = plot
+    let derrota = await desistir(filmeMaquina)
+
+    GiveUp.addEventListener('click', async function() {
         if(GiveUp.textContent == 'Give Up'){
-            GiveUp.style.animation = 'indicativo 2s infinite'
-            Description.style.display = 'flex'
+            tipBox.style.display = 'none'
             inputEscolha.style.display = 'none'
+
+            GiveUp.style.animation = 'indicativo 2s infinite'
             GiveUp.textContent = 'Play again'
+            Description.style.display = 'flex'
+            
+            passaParaFront(derrota)
+            
         }else if(GiveUp.textContent == 'Play again'){
             location.reload()
         }     
     })
-    inputEscolha.addEventListener('keydown', function(event) {
+    inputEscolha.addEventListener('keydown', async function(event) {
         
         if (event.key === 'Enter') {
 
             let valorEscolhido = inputEscolha.value
             
-            async function mostra(valor){
-                let resultado = await compararFilmes(filmeMaquina, valorEscolhido)
-                passaParaFront(resultado)
+            let resultado = await compararFilmes(filmeMaquina, valorEscolhido)
+            passaParaFront(resultado)
+            if(resultado.title.status && resultado.released.status){
+                tipBox.style.display = 'none'
+                inputEscolha.style.display = 'none'
+
+                GiveUp.style.animation = 'indicativo 2s infinite'
+                GiveUp.textContent = 'Play again'
+                Description.style.display = 'flex'
             }
-            mostra()
             
-            
-            //limpar o campo de input após capturar o valor
             inputEscolha.value = ''
         }
     })

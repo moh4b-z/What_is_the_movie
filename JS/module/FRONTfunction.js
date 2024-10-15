@@ -176,7 +176,7 @@ function passaParaFront(objeto){
     pBoxOffice.textContent = obj.boxOffice.text
     spanBoxOffice.textContent = obj.boxOffice.symbol
     
-
+    /*
     obj.production.forEach(function(item, indice){
         if(indice == 0){
             let Production = document.querySelector('#Production')
@@ -206,6 +206,7 @@ function passaParaFront(objeto){
         }
         
     })
+    */
 }
 
 function corFundo(valor){

@@ -29,8 +29,8 @@ function ComparacaoDeFilme(objeto1, objeto2) {
     // Comparação de boxOffice
     resultado.boxOffice = compararNumerosOuDatas(obj1.boxOffice, obj2.boxOffice, 'boxOffice')
 
-    // Comparação de production
-    resultado.production = compararListasParaObjeto(obj1.production.split(', '), obj2.production.split(', '), 'production')
+    // // Comparação de production
+    // resultado.production = compararListasParaObjeto(obj1.production.split(', '), obj2.production.split(', '), 'production')
 
     return resultado
 }

@@ -321,6 +321,10 @@ main{
   
 }
 
+
+.tipBox{
+  display: none;
+}
 .tipBox img{
   filter: blur(15px)
 }

@@ -45,7 +45,7 @@ async function descMovie(titulo) {
                 ratings: data.Ratings,      // Avaliações
                 plot: data.Plot,            // Descrição
                 boxOffice: data.BoxOffice,  // Bilheteria
-                production: data.Production,// Produtora
+                // production: data.Production,// Produtora não faz sentido ter mais
                 poster: data.Poster         // URL do pôster
             }
         } else {
