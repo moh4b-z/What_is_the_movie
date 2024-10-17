@@ -163,6 +163,7 @@ main{
   flex: 1;
   max-height: 85vh;
   background-color: var(--color-primary);
+  overflow: hidden;
 }
 
 .corpo{
@@ -185,15 +186,18 @@ main{
 }
 
 .pricipal{
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
   padding-inline: 1%;
-
+  overflow: hidden;
 }
 
 .atributos{
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   width: 100%;
   gap: 5px;
@@ -206,15 +210,37 @@ main{
   align-items: center;
   box-sizing: border-box;
   padding-inline: 5px;
-  flex-basis: calc(20% - 5px);
-  max-width: calc(20% - 5px);
+  flex-basis: calc(25% - 5px);
+  max-width: calc(25% - 5px);
 }
-.caixaAtributos div{
+.MaxAttribute{
   width: 100%;
+  height: 100px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
+.MaxAttribute::-webkit-scrollbar {
+  width: 8px;
+}
+.MaxAttribute::-webkit-scrollbar-track {
+  background: var(--color-third);
+  border-radius: 10px;
+}
+.MaxAttribute::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 10px;
+  border: 2px solid var(--color-third);
+}
+.MaxAttribute::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-fourth); 
+}
+
 .atributo{
   min-width: 100px;
   min-height: 20px;
+  max-height: 50px;
+  width: 90%;
   border-radius: 50px;
   padding: 6px;
   background-color: var(--color-third);
@@ -226,12 +252,30 @@ main{
 
 .buttonArea{
   width: 20%;
-  height: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+.buttonArea::-webkit-scrollbar {
+  width: 8px;
+}
+.buttonArea::-webkit-scrollbar-track {
+  background: var(--color-third);
+  border-radius: 10px;
+}
+.buttonArea::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 10px;
+  border: 2px solid var(--color-third);
+}
+.buttonArea::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-fourth); 
+}
+
 .buttonArea div{
   width: 100%;
   display: flex;

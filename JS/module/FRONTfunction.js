@@ -1,8 +1,7 @@
 function passaParaFront(objeto){
     let obj = objeto
 
-    let title = document.querySelector('#title')
-    title.style.borderColor = corFundo(obj.title.status)
+
     let h2title = document.querySelector('.h2title')
     h2title.textContent = obj.title.text
 
@@ -42,7 +41,7 @@ function passaParaFront(objeto){
 
             div.appendChild(paragrafo);
 
-            let allDirector = document.querySelector('.allDirector')
+            let allDirector = document.querySelector('#allDirector')
             allDirector.appendChild(div);
 
             div.style.borderColor = corFundo(item.status)
@@ -70,7 +69,7 @@ function passaParaFront(objeto){
 
             div.appendChild(paragrafo);
 
-            let allDirector = document.querySelector('.allWriter')
+            let allDirector = document.querySelector('#allWriter')
             allDirector.appendChild(div);
 
             div.style.borderColor = corFundo(item.status)
@@ -97,7 +96,7 @@ function passaParaFront(objeto){
 
             div.appendChild(paragrafo);
 
-            let allDirector = document.querySelector('.allActors')
+            let allDirector = document.querySelector('#allActors')
             allDirector.appendChild(div);
 
 
@@ -125,7 +124,7 @@ function passaParaFront(objeto){
 
             div.appendChild(paragrafo);
 
-            let allDirector = document.querySelector('.allGenre')
+            let allDirector = document.querySelector('#allGenre')
             allDirector.appendChild(div);
 
 
@@ -153,7 +152,7 @@ function passaParaFront(objeto){
 
             div.appendChild(paragrafo);
 
-            let allDirector = document.querySelector('.allCountry')
+            let allDirector = document.querySelector('#allCountry')
             allDirector.appendChild(div);
 
 
@@ -198,7 +197,7 @@ function passaParaFront(objeto){
 
             div.appendChild(paragrafo);
 
-            let allDirector = document.querySelector('.allProduction')
+            let allDirector = document.querySelector('#allProduction')
             allDirector.appendChild(div);
 
 

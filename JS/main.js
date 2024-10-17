@@ -138,6 +138,9 @@ play.addEventListener('click', async function() {
     pDescription.textContent = plot
     let derrota = await desistir(filmeMaquina)
     let blur = 25
+    imgDescription.style.display = 'none'
+    h4Description.style.display = 'none'
+    spanDescription.style.display = 'none'
 
     buttonTip.addEventListener('click', function() {
         if(blur != 5){
@@ -146,12 +149,17 @@ play.addEventListener('click', async function() {
             imgTip.style.display = 'flex'
         }else{
             buttonTip.style.display = 'none'
+            Description.style.display = 'flex'
+            
         }
         
                 
     })
 
     GiveUp.addEventListener('click', async function() {
+        imgDescription.style.display = 'flex'
+        h4Description.style.display = 'flex'
+        spanDescription.style.display = 'flex'
         if(GiveUp.textContent == 'Give Up'){
             tipBox.style.display = 'none'
             inputEscolha.style.display = 'none'
