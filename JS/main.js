@@ -13,6 +13,7 @@ var playArea = document.querySelector('.playArea')
 
 var tipBox = document.querySelector('.tipBox')
 var imgTip = document.querySelector('.tipBox > img')
+var buttonTip = document.querySelector('.tipBox > button')
 
 var Description = document.querySelector('.Description')
 var imgDescription = document.querySelector('.Description > img')
@@ -89,6 +90,11 @@ document.addEventListener('click', function (event) {
     }
 })
 
+Description.style.display = 'none'
+tipBox.style.display = 'none'
+
+
+
 
 sobre.addEventListener('click', function() {
 
@@ -105,9 +111,6 @@ document.addEventListener('click', function (event) {
         aviso.style.display = 'none';
     }
 })
-
-Description.style.display = 'none'
-tipBox.style.display = 'none'
 
 
 
@@ -134,6 +137,19 @@ play.addEventListener('click', async function() {
     spanDescription.textContent = released
     pDescription.textContent = plot
     let derrota = await desistir(filmeMaquina)
+    let blur = 25
+
+    buttonTip.addEventListener('click', function() {
+        if(blur != 5){
+            blur -= 5
+            imgTip.style.filter = `blur(${blur}px)`
+            imgTip.style.display = 'flex'
+        }else{
+            buttonTip.style.display = 'none'
+        }
+        
+                
+    })
 
     GiveUp.addEventListener('click', async function() {
         if(GiveUp.textContent == 'Give Up'){

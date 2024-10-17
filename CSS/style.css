@@ -326,7 +326,8 @@ main{
   display: none;
 }
 .tipBox img{
-  filter: blur(15px)
+  display: none;
+  transition: 0.5s;
 }
 
 
