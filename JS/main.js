@@ -5,7 +5,10 @@ var anoAtual = new Date().getFullYear()
 
 var inputEscolha = document.querySelector('.escolha')
 var aviso = document.querySelector('.aviso')
+
 var sobre = document.querySelector('.sobre')
+var sobre1 = document.querySelector('#onMobile')
+
 var body = document.querySelector('body')
 var play = document.querySelector('.play')
 var GiveUp = document.querySelector('.GiveUp')
@@ -105,9 +108,24 @@ sobre.addEventListener('click', function() {
     }
 
 })
+sobre1.addEventListener('click', function() {
+
+    if(aviso.style.display == 'flex'){
+        aviso.style.display = 'none'
+    }else{
+        aviso.style.display = 'flex'
+    }
+
+})
 document.addEventListener('click', function (event) {
     // Verifica se o clique foi fora do aviso e fora do botão que abre o aviso
     if (!aviso.contains(event.target) && !sobre.contains(event.target)) {
+        aviso.style.display = 'none';
+    }
+})
+document.addEventListener('click', function (event) {
+    // Verifica se o clique foi fora do aviso e fora do botão que abre o aviso
+    if (!aviso.contains(event.target) && !sobre1.contains(event.target)) {
         aviso.style.display = 'none';
     }
 })

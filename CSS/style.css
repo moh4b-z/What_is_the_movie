@@ -163,10 +163,11 @@ input
 
 
 main{
+  display: flex;
+  flex-direction: column;
   flex: 1;
   max-height: 85vh;
   background-color: var(--color-primary);
-  overflow: hidden;
 }
 
 .corpo{
