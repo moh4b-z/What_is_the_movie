@@ -73,19 +73,22 @@ header{
 header div{
   display: flex;
 }
+#onMobile{
+  display: none;
+}
 
-header button{
+.sobre{
   background-color: var(--color-primary);
+  width: 5%;
   color: var(--color-secondary);
-  padding-block: 2px;
+  padding-block: 4px;
   padding-inline: 5px;
   border-radius: 2px;
   transition: 0.5s;
 }
-header button:hover{
-  padding-block: 3px;
-  padding-inline: 6px;
-  border-radius: 4px;
+.sobre:hover{
+  transform: scale(1.2);
+  border-radius: 6px;
 }
 
 /*

@@ -1,1 +1,91 @@
-@media (max-width: 735px){}
+@media (max-width: 735px){
+        
+    :root{
+        --color-primary: #f7decb;
+        --color-secondary: #9c7561;
+        --color-third: #6f4c3b;
+        --color-fourth: #f8c7bb;
+        --color-erro-sugestao: #e42f29;
+        --color-acerto-sugestao: #15ff00;
+        --color-padrao-sugestao: #4c4c4c;
+    }
+    
+    body{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: relative;
+        color: var(--color-third);
+    }
+
+    body::-webkit-scrollbar {
+        width: 8px;
+    }
+    body::-webkit-scrollbar-track {
+        background: var(--color-third);
+        border-radius: 10px;
+    }
+    body::-webkit-scrollbar-thumb {
+        background-color: var(--color-secondary);
+        border-radius: 10px;
+        border: 2px solid var(--color-third);
+    }
+    body::-webkit-scrollbar-thumb:active {
+        background-color: var(--color-fourth); 
+    }
+    
+    .aviso{
+        position: absolute;
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--color-secondary);
+        color: var(--color-primary);
+        border: 1px solid var(--color-fourth);
+        border-radius: 10px;
+        box-shadow: 10px 10px 10px var(--color-third);
+        min-width: 300px;
+        width: 60vw;
+        padding: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    header{
+        height: 10vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 1vh;
+        padding-inline: 5vh;
+        background-color: var(--color-secondary);
+        color: var(--color-primary);
+    }
+    header div{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #onMobile{
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+        left: calc(100% - 1vh - 5%);
+        border-radius: 50%;
+        display: flex;
+        z-index: 2;
+    }
+    #onWeb{
+        display: none;
+    }
+    
+
+}
