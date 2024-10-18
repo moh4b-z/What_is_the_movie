@@ -4,12 +4,7 @@ import {compararFilmes, certaintyRandomMovie, desistir} from './module/function.
 var anoAtual = new Date().getFullYear()
 
 var inputEscolha = document.querySelector('.escolha')
-var aviso = document.querySelector('.aviso')
 
-var sobre = document.querySelector('.sobre')
-var sobre1 = document.querySelector('#onMobile')
-
-var body = document.querySelector('body')
 var play = document.querySelector('.play')
 var GiveUp = document.querySelector('.GiveUp')
 var playArea = document.querySelector('.playArea')
@@ -93,46 +88,6 @@ document.addEventListener('click', function (event) {
     }
 })
 
-Description.style.display = 'none'
-tipBox.style.display = 'none'
-
-
-
-
-sobre.addEventListener('click', function() {
-
-    if(aviso.style.display == 'flex'){
-        aviso.style.display = 'none'
-    }else{
-        aviso.style.display = 'flex'
-    }
-
-})
-sobre1.addEventListener('click', function() {
-
-    if(aviso.style.display == 'flex'){
-        aviso.style.display = 'none'
-    }else{
-        aviso.style.display = 'flex'
-    }
-
-})
-document.addEventListener('click', function (event) {
-    // Verifica se o clique foi fora do aviso e fora do botão que abre o aviso
-    if (!aviso.contains(event.target) && !sobre.contains(event.target)) {
-        aviso.style.display = 'none';
-    }
-})
-document.addEventListener('click', function (event) {
-    // Verifica se o clique foi fora do aviso e fora do botão que abre o aviso
-    if (!aviso.contains(event.target) && !sobre1.contains(event.target)) {
-        aviso.style.display = 'none';
-    }
-})
-
-
-
-
 play.addEventListener('click', async function() {
     var MovieGValue = MovieGenre.value
     var sYearValue = Number(startingYear.value)
@@ -168,10 +123,7 @@ play.addEventListener('click', async function() {
         }else{
             buttonTip.style.display = 'none'
             Description.style.display = 'flex'
-            
-        }
-        
-                
+        }  
     })
 
     GiveUp.addEventListener('click', async function() {
@@ -213,7 +165,6 @@ play.addEventListener('click', async function() {
         }
     })
 })
-
 
 preencherAnos(startingYear, 1900, anoAtual)
 preencherAnos(finalYear, 1900, anoAtual)
