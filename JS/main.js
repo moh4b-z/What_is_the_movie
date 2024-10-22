@@ -96,6 +96,7 @@ play.addEventListener('click', async function() {
     playArea.style.display = 'none'
     GiveUp.style.display = 'flex'
     tipBox.style.display = 'flex'
+    inputEscolha.style.display = 'flex'
 
     let filmeMaquina = await certaintyRandomMovie(MovieGValue, sYearValue, fYearValue)
     let poster = filmeMaquina.poster
