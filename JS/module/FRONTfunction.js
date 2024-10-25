@@ -230,4 +230,39 @@ function preencherAnos(select, startYear, endYear) {
     }
 }
 
-export { passaParaFront, preencherAnos}
+
+
+// mostrar as sugestões de filmes
+function mostrarSugestoes(filmes) {
+    let suggestionsBox = document.getElementById('suggestionsBox');
+    suggestionsBox.innerHTML = ''; // Limpa as sugestões anteriores
+
+    if (filmes.length > 0) {
+        filmes.forEach(filme => {
+            let suggestionItem = document.createElement('div');
+            suggestionItem.classList.add('suggestion-item'); // Adiciona uma classe para estilização, se necessário
+            suggestionItem.textContent = filme.title;
+
+            let releaseDateSpan = document.createElement('span');
+            releaseDateSpan.classList.add('release-date');
+            releaseDateSpan.textContent = ` (Lançamento: ${filme.year})`; // Exibe o ano de lançamento
+
+            // Anexa o ano de lançamento ao item de sugestão
+            suggestionItem.appendChild(releaseDateSpan);
+
+            // Adiciona a sugestão na caixa de sugestões
+            suggestionsBox.appendChild(suggestionItem);
+
+            // Evento para preencher o campo de input com o nome selecionado
+            suggestionItem.addEventListener('click', function () {
+                inputEscolha.value = filme.title; // Coloca o título no input
+                suggestionsBox.innerHTML = ''; // Limpa a lista de sugestões
+            });
+        });
+    } else {
+        suggestionsBox.textContent = 'Nenhum resultado encontrado'; // Exibe mensagem de erro
+    }
+}
+
+
+export { passaParaFront, preencherAnos, mostrarSugestoes}

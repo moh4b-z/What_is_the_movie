@@ -61,13 +61,28 @@ inputEscolha.addEventListener('input', function () {
                         suggestionsBox.appendChild(suggestionItem)
 
                         // Evento para preencher o campo com o nome selecionado
-                        suggestionItem.addEventListener('click', () => {
+                        suggestionItem.addEventListener('click', async () => {
                             inputEscolha.value = result.Title
                             suggestionsBox.textContent = '' 
+
+                            let valorEscolhido = inputEscolha.value
+            
+                            let resultado = await compararFilmes(filmeMaquina, valorEscolhido)
+                            passaParaFront(resultado)
+                            if(resultado.title.status && resultado.released.status){
+                                tipBox.style.display = 'none'
+                                inputEscolha.style.display = 'none'
+
+                                GiveUp.style.animation = 'indicativo 2s infinite'
+                                GiveUp.textContent = 'Play again'
+                                Description.style.display = 'flex'
+                            }
+                            
+                            inputEscolha.value = ''
                         })
                     })
                 } else {
-                    suggestionsBox.textContent = 'Nenhum resultado encontrado'
+                    suggestionsBox.textContent = 'No results found'
                 }
             } catch (error) {
                 console.error('Erro na requisição:', error)

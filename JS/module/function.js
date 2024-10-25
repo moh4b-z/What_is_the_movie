@@ -42,18 +42,18 @@ function compararNumerosOuDatas(valor1, valor2, Campo) {
     if (!val2 || val2 === 'N/A') val2 = null
 
     if (!val1 && !val2) {
-        return { status: null, text: `Os dois campos de ${nomeCampo} estão vazios`, symbol: '---' }
+        return { status: null, text: `Both ${nomeCampo} fields are empty`, symbol: '---' }
     }
     if (!val1) {
-        return { status: null, text: `O ${nomeCampo} do primeiro objeto está vazio`, symbol: '---' }
+        return { status: null, text: `The ${nomeCampo} in the first film is empty`, symbol: '---' }
     }
     if (!val2) {
-        return { status: null, text: `O ${nomeCampo} do segundo objeto está vazio`, symbol: '---' }
+        return { status: null, text: `The ${nomeCampo} in the second film is empty`, symbol: '---' }
     }
     if (val1 === val2) {
         return { status: true, text: val2, symbol: '=' }
     } else {
-        return { status: false, text: val2, symbol: val1 > val2 ? '<' : '>' }
+        return { status: false, text: val2, symbol: val1 > val2 ? '>' : '<' }
     }
 }
 
@@ -62,13 +62,13 @@ function compararListasParaObjeto(array1, array2, Campo) {
     let lista2 = array2
     let nomeCampo = Campo
     if ((!lista1 || lista1.includes('N/A')) && (!lista2 || lista2.includes('N/A'))) {
-        return [{ status: null, text: `Os dois campos de ${nomeCampo} estão vazios` }]
+        return [{ status: null, text: `Both ${nomeCampo} fields are empty` }]
     }
     if (!lista1 || lista1.includes('N/A')) {
-        return [{ status: null, text: `O ${nomeCampo} do primeiro objeto está vazio` }]
+        return [{ status: null, text: `The ${nomeCampo} in the first film is empty` }]
     }
     if (!lista2 || lista2.includes('N/A')) {
-        return [{ status: null, text: `O ${nomeCampo} do segundo objeto está vazio` }]
+        return [{ status: null, text: `The ${nomeCampo} in the second film is empty` }]
     }
 
     const resultadoLista = lista2.map(item => ({
