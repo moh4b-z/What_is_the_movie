@@ -197,7 +197,6 @@ main{
   align-items: center;
   width: 80%;
   padding-inline: 1%;
-  overflow: hidden;
 }
 
 .atributos{
@@ -263,7 +262,7 @@ main{
   flex-direction: column;
   gap: 4px;
   padding: 10px;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 .buttonArea::-webkit-scrollbar {

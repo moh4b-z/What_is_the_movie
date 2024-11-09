@@ -20,6 +20,7 @@ function passaParaFront(objeto){
     pRuntime.textContent = obj.runtime.text
     spanRuntime.textContent = obj.runtime.symbol
     
+    clearContainer('#allDirector')
     obj.director.forEach(function(item, indice){
         if(indice == 0){
             let Director = document.querySelector('#Director')
@@ -48,6 +49,7 @@ function passaParaFront(objeto){
         }
         
     })
+    clearContainer('#allWriter')
     obj.writer.forEach(function(item, indice){
         if(indice == 0){
             let Writer = document.querySelector('#Writer')
@@ -75,6 +77,7 @@ function passaParaFront(objeto){
             div.style.borderColor = corFundo(item.status)
         }
     })
+    clearContainer('#allActors')
     obj.actors.forEach(function(item, indice){
         if(indice == 0){
             let Actors = document.querySelector('#Actors')
@@ -103,6 +106,7 @@ function passaParaFront(objeto){
             div.style.borderColor = corFundo(item.status)
         }
     })
+    clearContainer('#allGenre')
     obj.genre.forEach(function(item, indice){
         if(indice == 0){
             let Genre = document.querySelector('#Genre')
@@ -131,6 +135,7 @@ function passaParaFront(objeto){
             div.style.borderColor = corFundo(item.status)
         }
     })
+    clearContainer('#allCountry')
     obj.country.forEach(function(item, indice){
         if(indice == 0){
             let Country = document.querySelector('#Country')
@@ -229,40 +234,11 @@ function preencherAnos(select, startYear, endYear) {
         select.appendChild(option)
     }
 }
-
-
-
-// mostrar as sugestões de filmes
-function mostrarSugestoes(filmes) {
-    let suggestionsBox = document.getElementById('suggestionsBox');
-    suggestionsBox.innerHTML = ''; // Limpa as sugestões anteriores
-
-    if (filmes.length > 0) {
-        filmes.forEach(filme => {
-            let suggestionItem = document.createElement('div');
-            suggestionItem.classList.add('suggestion-item'); // Adiciona uma classe para estilização, se necessário
-            suggestionItem.textContent = filme.title;
-
-            let releaseDateSpan = document.createElement('span');
-            releaseDateSpan.classList.add('release-date');
-            releaseDateSpan.textContent = ` (Lançamento: ${filme.year})`; // Exibe o ano de lançamento
-
-            // Anexa o ano de lançamento ao item de sugestão
-            suggestionItem.appendChild(releaseDateSpan);
-
-            // Adiciona a sugestão na caixa de sugestões
-            suggestionsBox.appendChild(suggestionItem);
-
-            // Evento para preencher o campo de input com o nome selecionado
-            suggestionItem.addEventListener('click', function () {
-                inputEscolha.value = filme.title; // Coloca o título no input
-                suggestionsBox.innerHTML = ''; // Limpa a lista de sugestões
-            });
-        });
-    } else {
-        suggestionsBox.textContent = 'Nenhum resultado encontrado'; // Exibe mensagem de erro
+function clearContainer(containerId) {
+    let container = document.querySelector(containerId)
+    while (container.children.length > 1) {
+        container.removeChild(container.lastChild)
     }
 }
 
-
-export { passaParaFront, preencherAnos, mostrarSugestoes}
+export { passaParaFront, preencherAnos}

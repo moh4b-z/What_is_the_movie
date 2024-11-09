@@ -1,5 +1,5 @@
 import {passaParaFront, preencherAnos} from './module/FRONTfunction.js'
-import {compararFilmes, certaintyRandomMovie, desistir} from './module/function.js'
+import {compararFilmes, certaintyRandomMovie, desistir, processarEscolha} from './module/function.js'
 
 var anoAtual = new Date().getFullYear()
 
@@ -24,74 +24,11 @@ var startingYear = document.getElementById('startingYear')
 var finalYear = document.getElementById('finalYear')
 
 
-let debounceTimer
-inputEscolha.addEventListener('input', function () {
-    let query = this.value // Pega o valor digitado no input
-    let suggestionsBox = document.getElementById('suggestionsBox')
+var debounceTimer
 
-    // Limpa o temporizador anterior
-    clearTimeout(debounceTimer)
+var sujestaoClicada = false
 
-    // Define um novo temporizador para aguardar 1 segundo após a última tecla
-    debounceTimer = setTimeout(async () => {
-        // Só faz a requisição se o valor tiver pelo menos 3 letras
-        if (query.length >= 3) {
-            let apiKey = '8f23043c'
-            let url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&type=movie&apikey=${apiKey}`
 
-            try {
-                let response = await fetch(url)
-                let data = await response.json()
-
-                // Limpa as sugestões anteriores
-                suggestionsBox.textContent = ''
-
-                if (data.Response === "True") {
-                    // Loop pelos resultados e adiciona cada um nas sugestões
-                    data.Search.forEach(result => {
-                        let suggestionItem = document.createElement('div')
-                        suggestionItem.textContent = result.Title
-
-                        let releaseDateSpan = document.createElement('span')
-                        releaseDateSpan.classList.add('release-date')
-                        releaseDateSpan.textContent = ` (Lançamento: ${result.Year})` // Exibe o ano de lançamento
-                        suggestionItem.appendChild(releaseDateSpan)
-
-                        
-                        suggestionsBox.appendChild(suggestionItem)
-
-                        // Evento para preencher o campo com o nome selecionado
-                        suggestionItem.addEventListener('click', async () => {
-                            inputEscolha.value = result.Title
-                            suggestionsBox.textContent = '' 
-
-                            let valorEscolhido = inputEscolha.value
-            
-                            let resultado = await compararFilmes(filmeMaquina, valorEscolhido)
-                            passaParaFront(resultado)
-                            if(resultado.title.status && resultado.released.status){
-                                tipBox.style.display = 'none'
-                                inputEscolha.style.display = 'none'
-
-                                GiveUp.style.animation = 'indicativo 2s infinite'
-                                GiveUp.textContent = 'Play again'
-                                Description.style.display = 'flex'
-                            }
-                            
-                            inputEscolha.value = ''
-                        })
-                    })
-                } else {
-                    suggestionsBox.textContent = 'No results found'
-                }
-            } catch (error) {
-                console.error('Erro na requisição:', error)
-            }
-        } else {
-            suggestionsBox.textContent = ''
-        }
-    }, 500)
-})
 
 document.addEventListener('click', function (event) {
     let suggestionsBox = document.getElementById('suggestionsBox')
@@ -160,9 +97,80 @@ play.addEventListener('click', async function() {
             location.reload()
         }     
     })
+    inputEscolha.addEventListener('input', function () {
+        let query = this.value // Pega o valor digitado no input
+        let suggestionsBox = document.getElementById('suggestionsBox')
+    
+        // Limpa o temporizador anterior
+        clearTimeout(debounceTimer)
+    
+        // Define um novo temporizador para aguardar 1 segundo após a última tecla
+        debounceTimer = setTimeout(async () => {
+            // Só faz a requisição se o valor tiver pelo menos 3 letras
+            if (query.length >= 3) {
+                let apiKey = '8f23043c'
+                let url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&type=movie&apikey=${apiKey}`
+    
+                try {
+                    let response = await fetch(url)
+                    let data = await response.json()
+    
+                    // Limpa as sugestões anteriores
+                    suggestionsBox.textContent = ''
+    
+                    if (data.Response === "True") {
+                        // Loop pelos resultados e adiciona cada um nas sugestões
+                        data.Search.forEach(result => {
+                            let suggestionItem = document.createElement('div')
+                            suggestionItem.textContent = result.Title
+    
+                            let releaseDateSpan = document.createElement('span')
+                            releaseDateSpan.classList.add('release-date')
+                            releaseDateSpan.textContent = ` (Lançamento: ${result.Year})` // Exibe o ano de lançamento
+                            suggestionItem.appendChild(releaseDateSpan)
+    
+                            
+                            suggestionsBox.appendChild(suggestionItem)
+                            
+                            // Evento para preencher o campo com o nome selecionado
+                            suggestionItem.addEventListener('click', async () => {
+                                sujestaoClicada = true
+                                inputEscolha.value = result.Title
+                                suggestionsBox.textContent = '' 
+                                
+
+                                let valorEscolhido = inputEscolha.value
+                                
+                                let resultado = await compararFilmes(filmeMaquina, valorEscolhido)
+                                passaParaFront(resultado)
+                                if(resultado.title.status && resultado.released.status){
+                                    tipBox.style.display = 'none'
+                                    inputEscolha.style.display = 'none'
+
+                                    GiveUp.style.animation = 'indicativo 2s infinite'
+                                    GiveUp.textContent = 'Play again'
+                                    Description.style.display = 'flex'
+                                }
+                                
+                                inputEscolha.value = ''
+                                sujestaoClicada = false
+                            })
+                        })
+                    } else {
+                        suggestionsBox.textContent = 'No results found'
+                    }
+                } catch (error) {
+                    console.error('Erro na requisição:', error)
+                }
+            } else {
+                suggestionsBox.textContent = ''
+            }
+        }, 500)
+    })
+    console.log(sujestaoClicada)
     inputEscolha.addEventListener('keydown', async function(event) {
         
-        if (event.key === 'Enter') {
+        if ((event.key === 'Enter' || sujestaoClicada == true) && inputEscolha.value != ''){
 
             let valorEscolhido = inputEscolha.value
             
@@ -178,6 +186,7 @@ play.addEventListener('click', async function() {
             }
             
             inputEscolha.value = ''
+            sujestaoClicada = false
         }
     })
 })

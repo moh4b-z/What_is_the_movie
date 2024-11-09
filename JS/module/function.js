@@ -137,5 +137,22 @@ async function certaintyRandomMovie(genre, startYear, endYear) {
         }
     } while (!descricao) // Continua enquanto a descrição for null
 }
+async function processarEscolha(Maquina, Escolhido) {
+    let filmeMaquina = Maquina
+    let valorEscolhido = Escolhido
+    let resultado = await compararFilmes(filmeMaquina, valorEscolhido)
+    passaParaFront(resultado)
 
-export { compararFilmes, certaintyRandomMovie, desistir}
+    if (resultado.title.status && resultado.released.status) {
+        tipBox.style.display = 'none'
+        inputEscolha.style.display = 'none'
+
+        GiveUp.style.animation = 'indicativo 2s infinite'
+        GiveUp.textContent = 'Play again'
+        Description.style.display = 'flex'
+    }
+
+    inputEscolha.value = ''
+    sujestaoClicada = false
+}
+export { compararFilmes, certaintyRandomMovie, desistir, processarEscolha}
