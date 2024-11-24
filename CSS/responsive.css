@@ -1,5 +1,5 @@
 @media (max-width: 735px){
-        
+
     :root{
         --color-primary: #f7decb;
         --color-secondary: #9c7561;
@@ -11,11 +11,10 @@
     }
     
     body{
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
+        height: auto;
         width: 100vw;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
         position: relative;
     }
 
@@ -34,147 +33,71 @@
     body::-webkit-scrollbar-thumb:active {
         background-color: var(--color-fourth); 
     }
-    
+
     header{
-        height: 10vh;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-block: 1vh;
-        padding-inline: 5vh;
-        background-color: var(--color-secondary);
-        color: var(--color-primary);
+        position:sticky;
+        top: -5px;
+        z-index: 3;
+        height: calc(10vh + 35px);
+        width: 100%;
+        flex-wrap: wrap-reverse;
+        padding-inline: 3vh;
     }
+
     header div{
+        width: 100%;
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .escolha{
+        width: 100%;
+        text-align: center;
+        transition: 0.5s;
+    }
+    .onButton{
+        height: 30px;
+        width: 100%;
     }
 
     main{
         display: flex;
         flex-direction: column;
         flex: 1;
-        height: 100%;
+        min-height: 100vh;
+        height: auto;
+        max-height: none;
     }
-    
+
     .corpo{
+        flex-wrap: wrap;
+        width: 100%;
+        height: 100%;
+        padding-inline: 10px;
+        padding-block: 5px;
         display: flex;
-        flex-direction: column;
+        position: relative;
+        align-items: center;
     }
+
     .linha{
-        min-height: 1px;
-        height: 0.5vw;
-        max-height: 3px;
-        width: 100%;
-        left: calc(20% + 10px);
+        display: none;
     }
-    
-    .pricipal{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 80%;
-        padding-inline: 1%;
-        overflow: hidden;
-    }
-    
-    
-    .caixaAtributos{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-        padding-inline: 5px;
-        flex-basis: calc(25% - 5px);
-        max-width: calc(25% - 5px);
-    }
-    .MaxAttribute{
-        width: 100%;
-        height: 100px;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    
-    .MaxAttribute::-webkit-scrollbar {
-        width: 8px;
-    }
-    .MaxAttribute::-webkit-scrollbar-track {
-        background: var(--color-third);
-        border-radius: 10px;
-    }
-    .MaxAttribute::-webkit-scrollbar-thumb {
-        background-color: var(--color-secondary);
-        border-radius: 10px;
-        border: 2px solid var(--color-third);
-    }
-    .MaxAttribute::-webkit-scrollbar-thumb:active {
-        background-color: var(--color-fourth); 
-    }
-    
-    
     .buttonArea{
         width: 100%;
-        height: 200%;
-        display: flex;
-        flex-direction: row;
-        gap: 4px;
-        padding: 10px;
-        overflow-y: hidden;
-        overflow-x: auto;
+        height: auto;
+        border-bottom: 2px solid var(--color-third);
     }
-    
-    .playArea {
-        height: 50%;
-        padding: 5px;
-        margin: 1vw;
+
+    .pricipal{
+        width: 100%;
     }
 
     .atributos{
-        flex-direction: column;
-        flex-wrap: nowrap;
-        height: 100%;
-        gap: 5px;
-        overflow-y: scroll;
-    }
-    
-    .atributos::-webkit-scrollbar {
-        width: 8px;
-    }
-    .atributos::-webkit-scrollbar-track {
-        background: var(--color-third);
-        border-radius: 10px;
-    }
-    .atributos::-webkit-scrollbar-thumb {
-        background-color: var(--color-secondary);
-        border-radius: 10px;
-        border: 2px solid var(--color-third);
-    }
-    .atributos::-webkit-scrollbar-thumb:active {
-        background-color: var(--color-fourth); 
-    }
-
-    .caixaAtributos{
-        width: 90vw;
-    }
-    .MaxAttribute{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(100px, 50%));
         width: 100%;
-        height: 100%;
     }
-    .atributo{
-        min-width: 100px;
-        min-height: 20px;
-        max-height: 50px;
-        width: 100%;
-        border-radius: 50px;
-        padding: 6px;
-        background-color: var(--color-third);
-        margin: 20px;
-        color: var(--color-primary);
-        text-align: center;
-        border: 2px solid;
-    }
-
-    
-
 }

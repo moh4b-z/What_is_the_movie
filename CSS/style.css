@@ -36,7 +36,8 @@ body{
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
   color: var(--color-third);
 }
@@ -62,6 +63,7 @@ body{
 
 header{
   height: 10vh;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,11 +74,12 @@ header{
 }
 header div{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .onButton{
   background-color: var(--color-primary);
-  width: 5%;
+  width: 100px;
   color: var(--color-secondary);
   padding-block: 4px;
   padding-inline: 5px;
@@ -200,10 +203,10 @@ main{
 }
 
 .atributos{
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, calc(25% - 5px)));
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   width: 100%;
   gap: 5px;
 }
@@ -216,7 +219,6 @@ main{
   box-sizing: border-box;
   padding-inline: 5px;
   flex-basis: calc(25% - 5px);
-  max-width: calc(25% - 5px);
 }
 .MaxAttribute{
   width: 100%;
@@ -304,7 +306,7 @@ main{
 
 .choiceArea {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(3, 3fr);
   gap: 5px;
   padding: 5px;
   width: 100%;
